@@ -9,8 +9,8 @@ type Article struct {
 
 	Content   string     `json:"content"`
     Summary   string     `json:"summary"`
-	Tags      string     `json:"tags"`
-	Category  string     `json:"cate"`
+	Tags      []string   `json:"tags"`
+	Category  []string   `json:"cate"`
 
 	CreatedAt   int64    `json:"created_at"`
     UpdatedAt   int64    `json:"updated_at"`

@@ -22,15 +22,12 @@ var (
 	htmlStor = conf.DirHtml() //编译后保存的文件夹
 
 	contents []*Article
-
-	maxId int
+    cates map[string]*Category
 )
 
 func LoadArticle() {
 
     contents = make([]*Article, 0)
-
-	maxId = 0
 
 	mdlist := Marklist()
 
@@ -41,11 +38,17 @@ func LoadArticle() {
 			art.Url = CreatePostLink(art)
 			contents = append(contents,art)
 
-			if art.Id > 0 {
-				if art.Id > maxId {
-					maxId = art.Id
-				}
-			}
+            cates = make(map[string]*Category)
+
+            for _, _cate := range art.Category {
+                cate := cates[_cate]
+                if cate == nil {
+                    cate = &Category{0, _cate, make([]*Article, 0), "/category/" + _cate}
+                    cates[_cate] = cate
+                }
+                cate.Count += 1
+                cate.Posts = append(cate.Posts, art)
+            }
 
 		} else {
 			panic(err)
@@ -98,6 +101,11 @@ func GetArchive() []*CollatedYear {
     return collated
 }
 
+//获取菜单数组
+func GetCate() map[string]*Category {
+    return cates
+}
+
 func loadContent(file string) (art *Article, err error) {
 
     art = &Article{}
@@ -118,8 +126,8 @@ func loadContent(file string) (art *Article, err error) {
 
     art.Title = ctx.Title
     art.Description = ctx.Description
-    art.Category = strings.Join(ctx.Categories, ",")
-    art.Tags = strings.Join(ctx.Tags, ",")
+    art.Category = ctx.Categories
+    art.Tags = ctx.Tags
     art.Summary = summary
     art.Content = utils.MarkdownToHtml(ctx.Content)
     art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)

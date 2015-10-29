@@ -35,6 +35,7 @@ func Compile() {
 func CompileHome() {
 
 	data["artlist"] = GetAllArt()
+	data["cate"] = GetCate()
 	data["tpl"] = conf.DirTheme() + "/layout/index.html"
 
 	err := utils.MkDir(conf.DirHtml())
@@ -89,33 +90,6 @@ func CompileArticle() {
 }
 
 func CompileArchive() {
-
-	data["archive"] = GetArchive()
-	data["tpl"] = conf.DirTheme() + "/layout/archive.html"
-
-	filepath := path.Join(conf.DirHtml(), "archive")
-
-	err := utils.MkDir(filepath)
-
-	if err != nil {
-		panic(err)
-	}
-
-	filename := path.Join(filepath, "index.html")
-
-	htmlfile, err := os.Create(filename)
-
-	if err != nil {
-		panic(err)
-	}
-
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "format": utils.CMonth})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
-	t.Execute(htmlfile, data)
-}
-
-func CompileTags() {
 
 	data["archive"] = GetArchive()
 	data["tpl"] = conf.DirTheme() + "/layout/archive.html"
