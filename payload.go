@@ -23,11 +23,15 @@ var (
 
 	contents []*Article
     cates map[string]*Category
+    tags map[string]*Tag
 )
 
 func LoadArticle() {
 
     contents = make([]*Article, 0)
+
+    cates = make(map[string]*Category)
+    tags = make(map[string]*Tag)
 
 	mdlist := Marklist()
 
@@ -38,8 +42,6 @@ func LoadArticle() {
 			art.Url = CreatePostLink(art)
 			contents = append(contents,art)
 
-            cates = make(map[string]*Category)
-
             for _, _cate := range art.Category {
                 cate := cates[_cate]
                 if cate == nil {
@@ -48,6 +50,16 @@ func LoadArticle() {
                 }
                 cate.Count += 1
                 cate.Posts = append(cate.Posts, art)
+            }
+
+            for _, _tag := range art.Tags {
+                tag := tags[_tag]
+                if tag == nil {
+                    tag = &Tag{0, _tag, make([]*Article, 0), "/tag/" + _tag}
+                    tags[_tag] = tag
+                }
+                tag.Count += 1
+                tag.Posts = append(tag.Posts, art)
             }
 
 		} else {
@@ -104,6 +116,11 @@ func GetArchive() []*CollatedYear {
 //获取菜单数组
 func GetCate() map[string]*Category {
     return cates
+}
+
+// 获取tag
+func GetTag() map[string]*Tag {
+    return tags
 }
 
 func loadContent(file string) (art *Article, err error) {
