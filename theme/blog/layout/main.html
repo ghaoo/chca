@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/basic.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <title>{{ .sitetitle }}</title>
+</head>
+<style type="text/css">
+    h1,h2,h3 {
+        font-size: 22px;
+    }
+    ul li {
+        list-style: none;
+    }
+</style>
+<body style="zoom: 1;">
+<!------------------------------left-start---------------------------->
+
+<div class="sidebar">
+
+    <div class="logo-title">
+        <div class="title animated fadeInDown">
+            <img src="{{ .avatar }}" style="width:127px;border-radius: 50%;">
+            <h3 title="{{ .title }}"><a href="http://www.golune.com">{{ .sitetitle }}</a></h3>
+
+            <div class="description animated fadeInDown">
+                <p>{{ .subtitle }}</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links animated fadeInDown">
+        <li><a href="{{ .github }}"><i class="fa fa-github"></i></a>
+        </li>
+        <li><a href="{{ .weibo }}"><i class="fa fa-weibo"></i></a>
+        </li>
+    </ul>
+
+
+
+
+    <div class="footer">
+        <!--footer-->
+        分类：
+            {{ range .cate }}
+
+            <span>
+                <a href="{{ .Url }}">
+                    {{ .Name }}
+                </a>&nbsp;
+            </span>
+
+            {{ end }}
+        {{ range .cate }}
+
+            <span>
+                <a href="{{ .Url }}">
+                    {{ .Name }}
+                </a>&nbsp;
+            </span>
+
+        {{ end }}
+        {{ range .cate }}
+
+            <span>
+                <a href="{{ .Url }}">
+                    {{ .Name }}
+                </a>&nbsp;
+            </span>
+
+        {{ end }}
+
+    </div>
+</div>
+
+<!------------------------------left-end---------------------------->
+
+<div class="main">      <!-----right-start------>
+
+    <div class="page-top animated fadeInDown">
+        <div class="nav">
+            <li><a href="/">Home</a>
+            </li>
+            <li><a href="/archive">Archive</a>
+            </li>
+            <li><a href="abort.html">About</a>
+            </li>
+        </div>
+        <div class="information">
+            <div class="back_btn">
+            </div>
+            <div class="avatar"><img src="{{ .d.Avatar }}">
+            </div>
+        </div>
+    </div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+
+            {{import .tpl .}}
+
+            <div class="pagination">
+                <ul class="clearfix">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> <!----right-end---->
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+</body>
+</html>
