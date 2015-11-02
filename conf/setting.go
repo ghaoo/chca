@@ -21,7 +21,7 @@ storage = storage
 
 [author]
 name = guhao
-avatar = /static/avatar/1.png
+avatar = /assets/avatar.png
 github = guhao022
 weibo = guhao`
 
