@@ -9,7 +9,7 @@
     <meta name="description" content="" />
 
     <link href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://cdn.bootcss.com/highlight.js/8.9.1/styles/solarized_dark.min.css" rel="stylesheet">
+    <link href="/assets/css/prism.css" rel="stylesheet">
     <link href="/assets/css/basic.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <title>{{ .sitetitle }}</title>
@@ -50,24 +50,7 @@
     <div class="footer">
         <!--footer-->
         分类：
-            {{ range .cate }}
 
-            <span>
-                <a href="{{ .Url }}">
-                    {{ .Name }}
-                </a>&nbsp;
-            </span>
-
-            {{ end }}
-        {{ range .cate }}
-
-            <span>
-                <a href="{{ .Url }}">
-                    {{ .Name }}
-                </a>&nbsp;
-            </span>
-
-        {{ end }}
         {{ range .cate }}
 
             <span>
@@ -117,7 +100,10 @@
 
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="http://cdn.bootcss.com/highlight.js/8.9.1/highlight.min.js"></script>
+<script src="http://cdn.bootcss.com/prism/0.0.1/prism.min.js"></script>
+
+<script type="text/javascript">
+</script>
 
 </body>
 </html>
