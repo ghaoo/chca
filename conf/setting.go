@@ -16,14 +16,14 @@ summary_line = 10
 [dir]
 theme = blog
 markdown = markdown
-html = blog
+html = /data/www/golune
 storage = storage
 
 [author]
 name = guhao
 avatar = /assets/avatar.png
-github = guhao022
-weibo = guhao`
+github = https://github.com/guhao022
+weibo = http://weibo.com/golune`
 
 func InitConf() {
 
