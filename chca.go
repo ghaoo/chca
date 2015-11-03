@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"errors"
 
-	"chca/conf"
+	"github.com/guhao022/chca/conf"
 
 )
 

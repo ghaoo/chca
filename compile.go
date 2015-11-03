@@ -5,9 +5,9 @@ import (
 	"os"
 	"path"
 
-	"chca/conf"
-	"chca/utils"
-	"neutron/template"
+	"github.com/guhao022/chca/conf"
+	"github.com/guhao022/chca/utils"
+	"github.com/guhao022/neutron/template"
 )
 
 var data = map[string]interface{}{

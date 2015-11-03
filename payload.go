@@ -14,8 +14,8 @@ import (
     "bytes"
 
     "gopkg.in/yaml.v2"
-	"chca/conf"
-	"chca/utils"
+	"github.com/guhao022/chca/conf"
+	"github.com/guhao022/chca/utils"
 )
 
 var (
