@@ -64,13 +64,13 @@ func InitDir() {
 		}
 	}
 
-	_, err = os.Stat(DirStor())
+	/*_, err = os.Stat(DirStor())
 	if os.IsNotExist(err) {
 
 		if err := os.MkdirAll(DirStor(), os.ModePerm); err != nil {
 			panic(err)
 		}
-	}
+	}*/
 
 	_, err = os.Stat(DirTheme())
 	if os.IsNotExist(err) {
