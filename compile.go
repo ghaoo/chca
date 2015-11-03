@@ -292,7 +292,7 @@ func checkFile() {
 		panic("需要先初始化并添加模板文件")
 	}
 
-	if _, err := os.Stat(conf.DirStor()); os.IsNotExist(err) {
+	/*if _, err := os.Stat(conf.DirStor()); os.IsNotExist(err) {
 		panic("需要先初始化")
-	}
+	}*/
 }

@@ -21,9 +21,9 @@ const (
 	dir_storage  = "storage"
 
 	author_name   = "nil"
-	author_avatar = "/static/avatar/1.png"
-	author_github = "guhao022"
-	author_weibo  = "guhao"
+	author_avatar = "/assets/avatar.jpg"
+	author_github = "https://github.com/guhao022"
+	author_weibo  = "http://weibo.com/golune"
 )
 
 func dict() conf.Dict {
@@ -135,7 +135,7 @@ func Avatar() string {
 
 func Github() string {
 	dict := dict()
-	author, found := dict.GetString("authar", "github")
+	author, found := dict.GetString("author", "github")
 	if !found {
 		author = author_github
 	}
@@ -144,7 +144,7 @@ func Github() string {
 
 func Weibo() string {
 	dict := dict()
-	weibo, found := dict.GetString("authar", "weibo")
+	weibo, found := dict.GetString("author", "weibo")
 	if !found {
 		weibo = author_weibo
 	}
