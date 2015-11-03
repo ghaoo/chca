@@ -28,10 +28,6 @@ Usage:
 
     chca new filename
 
-同步 markdown 文件
-
-    chca sync
-
 编译博客
 
     chca compile
