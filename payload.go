@@ -12,11 +12,11 @@ import (
 	"strings"
 	"time"
     "bytes"
+    "path"
 
     "gopkg.in/yaml.v2"
 	"github.com/guhao022/chca/conf"
 	"github.com/guhao022/chca/utils"
-    "path"
 )
 
 var (
@@ -167,15 +167,15 @@ func GetAbout() (art *Article, err error) {
         return art, nil
     }
 
-    ctx, err := ReadMuCtx(about)
+    content, err := ioutil.ReadFile(about)
 
     if err != nil {
         return nil, err
     }
 
     art.Title = ""
-    art.Content = utils.MarkdownToHtml(ctx.Content)
-    art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)
+    art.Content = utils.MarkdownToHtml(string(content))
+    art.CreatedAt = time.Now().Unix()
 
     return art, nil
 }
