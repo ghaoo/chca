@@ -33,6 +33,7 @@ func Compile() {
 	CompileCatePage()
 	CompileCategory()
 	CompileTag()
+	CompileAbout()
 }
 
 // 编译主页
@@ -93,6 +94,32 @@ func CompileArticle() {
 		t.Walk(conf.DirTheme()+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
+}
+
+// 编译about页
+func CompileAbout() {
+	about, err := GetAbout()
+	if err != nil {
+		panic(err)
+	}
+
+	data["tpl"] = conf.DirTheme() + "/layout/page.html"
+
+	data["article"] = about
+	data["cate"] = GetCate()
+
+	filepath := path.Join(conf.DirHtml(), "about.html")
+
+	htmlfile, err := os.Create(filepath)
+
+	if err != nil {
+		panic(err)
+	}
+
+	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Execute(htmlfile, data)
 }
 
 // 编译归档页

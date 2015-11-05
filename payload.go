@@ -16,6 +16,7 @@ import (
     "gopkg.in/yaml.v2"
 	"github.com/guhao022/chca/conf"
 	"github.com/guhao022/chca/utils"
+    "path"
 )
 
 var (
@@ -155,6 +156,28 @@ func loadContent(file string) (art *Article, err error) {
 // 获取所有的文章
 func GetAllArt() []*Article {
 	return contents
+}
+
+// 获取about内容
+func GetAbout() (art *Article, err error) {
+    art = &Article{}
+    about := path.Join(conf.DirTheme(), "/about.md")
+
+    if _, err := os.Stat(about); os.IsNotExist(err) {
+        return art, nil
+    }
+
+    ctx, err := ReadMuCtx(about)
+
+    if err != nil {
+        return nil, err
+    }
+
+    art.Title = ""
+    art.Content = utils.MarkdownToHtml(ctx.Content)
+    art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)
+
+    return art, nil
 }
 
 // 获取 markdown 文件夹下所有文件
