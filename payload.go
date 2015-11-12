@@ -36,6 +36,8 @@ func LoadArticle() {
 
 	mdlist := Marklist()
 
+    fmt.Println(mdlist)
+
 	for _, fi := range mdlist {
 		art, err := loadContent(fi)
 
