@@ -13,6 +13,7 @@ const (
 	site_title        = "chca"
 	site_subtitle     = ""
 	site_description  = ""
+	site_keywords  	  = ""
 	site_summary_line = 10
 
 	dir_markdown = "markdown"
@@ -57,6 +58,15 @@ func SiteSubTitle() string {
 		subtitle = site_subtitle
 	}
 	return subtitle
+}
+
+func SiteKeywords() string {
+	dict := dict()
+	description, found := dict.GetString("site", "keywords")
+	if !found {
+		description = site_keywords
+	}
+	return description
 }
 
 func SiteDescription() string {
