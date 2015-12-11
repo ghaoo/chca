@@ -1,31 +1,23 @@
-<div class="post-page">
-    <div class="post animated fadeInDown">
-        <div class="post-title">
-            <h3>{{ .article.Title }}
-            </h3>
-        </div>
-        <div class="post-content">
 
-            {{ .article.Content | unescaped }}
 
-        </div>
-        <div class="post-footer">
-            <div class="meta">
-                <div class="info">
-                    <i class="fa fa-calendar"></i>
-                    <span class="date">{{ .article.CreatedAt | format }}</span>
-                    &nbsp;&nbsp;
-                    <i class="fa fa-folder-open"></i>
-                    {{ range .article.Category }}
-                    <a href="/category/{{ . }}">{{ . }}</a>&nbsp;
-                    {{ end }}
-                    &nbsp;&nbsp;
-                    <i class="fa fa-tags"></i>
-                    {{ range .article.Tags }}
-                    <a href="/tag/{{ . }}">{{ . }}</a>&nbsp;
-                    {{ end }}
+<div class="archive animated fadeInDown">
+    <div class="list-with-title">
+        <div class="listing-title">{{ .ptitle }}({{ .count }})</div>
+
+        <ul class="listing">
+
+            {{ range .content }}
+
+            <div class="listing-item">
+
+                <div class="listing-post"><a href="{{ .Url }}" title="{{ .Title }}">{{ .Title }}</a>
+                    <div class="post-time">
+                        <span class="date">{{ .CreatedAt | format }}</span>
+                    </div>
                 </div>
+
             </div>
-        </div>
+
+            {{ end }}</ul>
     </div>
 </div>
