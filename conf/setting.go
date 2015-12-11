@@ -10,7 +10,8 @@ var confile = ConfigFile
 var conf_setting = `[site]
 title = Golune
 subtitle = 十年拿大锤，看什么都是钉子
-description = 胡乱写写
+description = 专注golang，php，python，c/c++等语言开发，服务器开发
+keywords = golang,php,laravel,服务器
 summary_line = 10
 
 [dir]
