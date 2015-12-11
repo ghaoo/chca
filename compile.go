@@ -8,12 +8,14 @@ import (
 	"github.com/guhao022/chca/conf"
 	"github.com/guhao022/chca/utils"
 	"github.com/guhao022/neutron/template"
+	"strings"
 )
 
 var data = map[string]interface{}{
 	"title":       conf.SiteTitle(),
 	"subtitle":    conf.SiteSubTitle(),
 	"description": conf.SiteDescription(),
+	"keywords":	   conf.SiteKeywords(),
 	"author":      conf.Author(),
 	"avatar":      conf.Avatar(),
 	"github":      conf.Github(),
@@ -67,7 +69,10 @@ func CompileArticle() {
 	artlist := GetAllArt()
 
 	for _, art := range artlist {
-		data["tpl"] = conf.DirTheme() + "/layout/page.html"
+		data["tpl"] = conf.DirTheme() + "/layout/post.html"
+
+		data["description"] = art.Summary
+		data["keywords"] = strings.Join(art.Tags, ",")
 
 		data["article"] = art
 		data["cate"] = GetCate()
@@ -103,7 +108,7 @@ func CompileAbout() {
 		panic(err)
 	}
 
-	data["tpl"] = conf.DirTheme() + "/layout/page.html"
+	data["tpl"] = conf.DirTheme() + "/layout/post.html"
 
 	data["article"] = about
 	data["cate"] = GetCate()
@@ -190,7 +195,7 @@ func CompileCategory() {
 		data["ptitle"] = cate.Name
 		data["content"] = cate.Posts
 		data["count"] = cate.Count
-		data["tpl"] = conf.DirTheme() + "/layout/post.html"
+		data["tpl"] = conf.DirTheme() + "/layout/page.html"
 
 		filepath := path.Join(conf.DirHtml(), "category", cate.Name)
 
@@ -256,7 +261,7 @@ func CompileTag() {
 		data["ptitle"] = tag.Name
 		data["content"] = tag.Posts
 		data["count"] = tag.Count
-		data["tpl"] = conf.DirTheme() + "/layout/post.html"
+		data["tpl"] = conf.DirTheme() + "/layout/page.html"
 
 		filepath := path.Join(conf.DirHtml(), "tag", tag.Name)
 
