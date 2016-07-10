@@ -161,7 +161,7 @@ func GetAllArt() []*Article {
 // 获取about内容
 func GetAbout() (art *Article, err error) {
     art = &Article{}
-    about := path.Join(conf.DirTheme(), "/about.md")
+    about := path.Join(conf.DirMark(), "/about.md")
 
     if _, err := os.Stat(about); os.IsNotExist(err) {
         return art, nil
@@ -195,6 +195,10 @@ func Marklist() (mdlist []string) {
 		}
 
 		if strings.ToLower(f.Name()) == "readme.md" {
+			return nil
+		}
+
+		if f.Name() == "about.md" {
 			return nil
 		}
 
