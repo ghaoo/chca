@@ -319,6 +319,11 @@ func copy() {
 
 }
 
+// 使用 git 更新 markdown 文件
+func remote_md() {
+	
+}
+
 func checkFile() {
 	if _, err := os.Stat(conf.DirTheme()); os.IsNotExist(err) {
 		log.Println("需要先初始化并添加模板文件")

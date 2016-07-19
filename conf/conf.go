@@ -25,6 +25,8 @@ const (
 	author_avatar = "/assets/avatar.jpg"
 	author_github = "https://github.com/guhao022"
 	author_weibo  = "http://weibo.com/golune"
+
+	url_gitmd  = "https://github.com/num5/blog_md.git"
 )
 
 func dict() conf.Dict {
@@ -159,4 +161,13 @@ func Weibo() string {
 		weibo = author_weibo
 	}
 	return weibo
+}
+
+func RemoteMd() string {
+	dict := dict()
+	md, found := dict.GetString("author", "gitmd")
+	if !found {
+		md = url_gitmd
+	}
+	return md
 }
