@@ -3,3 +3,4 @@ conf.ini
 markdown/
 storage/
 .DS_Store
+.idea

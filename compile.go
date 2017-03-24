@@ -5,9 +5,9 @@ import (
 	"os"
 	"path"
 
-	"github.com/guhao022/chca/conf"
-	"github.com/guhao022/chca/utils"
-	"github.com/guhao022/neutron/template"
+	"github.com/num5/chca/conf"
+	"github.com/num5/chca/utils"
+	"github.com/num5/template"
 	"strings"
 )
 
