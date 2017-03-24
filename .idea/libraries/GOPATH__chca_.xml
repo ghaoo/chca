@@ -1,0 +1,29 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;chca&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../liveguide" />
+      <root url="file://$PROJECT_DIR$/../spider" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../wxbot" />
+      <root url="file://$PROJECT_DIR$/../sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../axiom" />
+      <root url="file://$PROJECT_DIR$/../crawler" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../liveguide" />
+      <root url="file://$PROJECT_DIR$/../spider" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../wxbot" />
+      <root url="file://$PROJECT_DIR$/../sourcegraph.com" />
+      <root url="file://$PROJECT_DIR$/../axiom" />
+      <root url="file://$PROJECT_DIR$/../crawler" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
