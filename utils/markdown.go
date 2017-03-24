@@ -19,6 +19,7 @@ var (
 )
 
 var navRegex = regexp.MustCompile(`(?ismU)<nav>(.*)</nav>`)
+var checkboxRegex = regexp.MustCompile(``)
 
 func MarkdownToHtml(content string) (str string) {
 	defer func() {
@@ -49,6 +50,8 @@ func MarkdownToHtml(content string) (str string) {
 	extensions |= EXTENSION_AUTOLINK
 	extensions |= EXTENSION_STRIKETHROUGH
 	extensions |= EXTENSION_SPACE_HEADERS
+	extensions |= EXTENSION_HARD_LINE_BREAK
+	extensions |= EXTENSION_FOOTNOTES
 
 	str = string(Markdown([]byte(content), renderer, extensions))
 
