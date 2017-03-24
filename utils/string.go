@@ -1,12 +1,12 @@
 package utils
 
 import (
-    "strings"
+	"strings"
 )
 
 func Convert(str string) string {
-    str = strings.ToLower(str)
-    ss := strings.SplitN(str, " ", -1)
+	str = strings.ToLower(str)
+	ss := strings.SplitN(str, " ", -1)
 
-    return strings.Join(ss, "-")
+	return strings.Join(ss, "-")
 }

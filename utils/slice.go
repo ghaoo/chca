@@ -1,26 +1,26 @@
 package utils
 
 func Contains(sl []string, s string) bool {
-    contains := false
+	contains := false
 
-    for _, v := range sl {
-        if v == s {
-            contains = true
-        }
-    }
+	for _, v := range sl {
+		if v == s {
+			contains = true
+		}
+	}
 
-    return contains
+	return contains
 }
 
 func Count(sl []string) (num int) {
-    num = 0
-    for _, s := range sl {
-        if s != "" {
-            num += 1
-        }
-    }
+	num = 0
+	for _, s := range sl {
+		if s != "" {
+			num += 1
+		}
+	}
 
-   return
+	return
 }
 
 func Lt(a, b int) bool { return a < b }

@@ -1,16 +1,15 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
-	"errors"
 
 	"github.com/num5/chca/conf"
-
 )
 
 const (
@@ -44,7 +43,7 @@ func PrintUsage() {
 }
 
 var (
-	args      []string
+	args []string
 )
 
 func main() {
@@ -62,15 +61,15 @@ func main() {
 		os.Exit(1)
 	case "init":
 		new()
-    case "new":
-        if len(args) == 2 {
-            name := args[1]
+	case "new":
+		if len(args) == 2 {
+			name := args[1]
 
-            CrearteMark(name)
-        } else {
-            log.Println(errors.New("缺少文件名"))
-        }
-    case "compile":
+			CrearteMark(name)
+		} else {
+			log.Println(errors.New("缺少文件名"))
+		}
+	case "compile":
 		Compile()
 	case "http":
 		var port int = 9900

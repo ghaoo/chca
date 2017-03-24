@@ -4,18 +4,19 @@ import (
 	"log"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/num5/chca/conf"
+	"github.com/num5/chca/template"
 	"github.com/num5/chca/utils"
-	"github.com/num5/template"
-	"strings"
+	"time"
 )
 
 var data = map[string]interface{}{
 	"title":       conf.SiteTitle(),
 	"subtitle":    conf.SiteSubTitle(),
 	"description": conf.SiteDescription(),
-	"keywords":	   conf.SiteKeywords(),
+	"keywords":    conf.SiteKeywords(),
 	"author":      conf.Author(),
 	"avatar":      conf.Avatar(),
 	"github":      conf.Github(),
@@ -28,9 +29,9 @@ func Compile() {
 
 	LoadArticle()
 	// 创建页面
-    CompileHome()
-    CompileArticle()
-    CompileArchive()
+	CompileHome()
+	CompileArticle()
+	CompileArchive()
 	CompileTagPage()
 	CompileCatePage()
 	CompileCategory()
@@ -301,6 +302,21 @@ func CrearteMark(filename string) string {
 		panic(err)
 	}
 
+	date := time.Now().Format("2006-01-02")
+	masthead := `---
+date: `+ date +`
+title:
+categories:
+- 技术
+tags:
+-
+-
+---`
+	err = utils.WriteFile(src, masthead)
+	if err != nil {
+		panic(err)
+	}
+
 	return src
 }
 
@@ -321,7 +337,7 @@ func copy() {
 
 // 使用 git 更新 markdown 文件
 func remote_md() {
-	
+
 }
 
 func checkFile() {

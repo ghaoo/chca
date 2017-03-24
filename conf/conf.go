@@ -1,10 +1,9 @@
+// Initialize the configuration file
 package conf
 
 import (
 	"os"
 	"path"
-
-	"github.com/guhao022/neutron/conf"
 )
 
 var ConfigFile = "conf.ini"
@@ -13,7 +12,7 @@ const (
 	site_title        = "chca"
 	site_subtitle     = ""
 	site_description  = ""
-	site_keywords  	  = ""
+	site_keywords     = ""
 	site_summary_line = 10
 
 	dir_markdown = "markdown"
@@ -23,13 +22,13 @@ const (
 
 	author_name   = "nil"
 	author_avatar = "/assets/avatar.jpg"
-	author_github = "https://github.com/guhao022"
+	author_github = "https://github.com/num5"
 	author_weibo  = "http://weibo.com/golune"
 
-	url_gitmd  = "https://github.com/num5/blog_md.git"
+	url_gitmd = "https://github.com/num5/blog_md.git"
 )
 
-func dict() conf.Dict {
+func dict() Dict {
 
 	_, err := os.Stat(ConfigFile)
 
@@ -37,7 +36,7 @@ func dict() conf.Dict {
 		InitConf()
 	}
 
-	dict, err := conf.Load(ConfigFile)
+	dict, err := Load(ConfigFile)
 	if err != nil {
 		panic(err)
 	}

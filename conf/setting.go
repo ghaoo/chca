@@ -9,7 +9,7 @@ var confile = ConfigFile
 
 var conf_setting = `[site]
 title = Golune
-subtitle = 十年拿大锤，看什么都是钉子
+subtitle = 不疯魔不成佛，佛不渡我我自成魔
 description = 专注golang，php，python，c/c++等语言开发，服务器开发
 keywords = golang,php,laravel,服务器
 summary_line = 10
@@ -23,8 +23,9 @@ storage = storage
 [author]
 name = guhao
 avatar = /assets/avatar.png
-github = https://github.com/guhao022
-weibo = http://weibo.com/golune`
+github = https://github.com/num5
+weibo = http://weibo.com/golune
+mail = 378999587@qq.com`
 
 func InitConf() {
 

@@ -2,37 +2,36 @@ package main
 
 import (
 	"bufio"
-	"errors"
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
 	"time"
-    "bytes"
-    "path"
 
-    "gopkg.in/yaml.v2"
-	"github.com/guhao022/chca/conf"
-	"github.com/guhao022/chca/utils"
+	"github.com/num5/chca/conf"
+	"github.com/num5/chca/utils"
+	"gopkg.in/yaml.v2"
 )
 
 var (
 	htmlStor = conf.DirHtml() //编译后保存的文件夹
 
 	contents []*Article
-    cates map[string]*Category
-    tags map[string]*Tag
+	cates    map[string]*Category
+	tags     map[string]*Tag
 )
 
 func LoadArticle() {
 
-    contents = make([]*Article, 0)
+	contents = make([]*Article, 0)
 
-    cates = make(map[string]*Category)
-    tags = make(map[string]*Tag)
+	cates = make(map[string]*Category)
+	tags = make(map[string]*Tag)
 
 	mdlist := Marklist()
 
@@ -41,116 +40,116 @@ func LoadArticle() {
 
 		if err == nil {
 			art.Url = CreatePostLink(art)
-			contents = append(contents,art)
+			contents = append(contents, art)
 
-            for _, _cate := range art.Category {
-                cate := cates[_cate]
-                if cate == nil {
-                    cate = &Category{0, _cate, make([]*Article, 0), "/category/" + _cate}
-                    cates[_cate] = cate
-                }
-                cate.Count += 1
-                cate.Posts = append(cate.Posts, art)
-            }
+			for _, _cate := range art.Category {
+				cate := cates[_cate]
+				if cate == nil {
+					cate = &Category{0, _cate, make([]*Article, 0), "/category/" + _cate}
+					cates[_cate] = cate
+				}
+				cate.Count += 1
+				cate.Posts = append(cate.Posts, art)
+			}
 
-            for _, _tag := range art.Tags {
-                tag := tags[_tag]
-                if tag == nil {
-                    tag = &Tag{0, _tag, make([]*Article, 0), "/tag/" + _tag}
-                    tags[_tag] = tag
-                }
-                tag.Count += 1
-                tag.Posts = append(tag.Posts, art)
-            }
+			for _, _tag := range art.Tags {
+				tag := tags[_tag]
+				if tag == nil {
+					tag = &Tag{0, _tag, make([]*Article, 0), "/tag/" + _tag}
+					tags[_tag] = tag
+				}
+				tag.Count += 1
+				tag.Posts = append(tag.Posts, art)
+			}
 
 		} else {
 			panic(err)
 		}
 	}
 
-    sort.Sort(Articles(contents))
+	sort.Sort(Articles(contents))
 }
 
 // 获取归档信息
 func GetArchive() []*CollatedYear {
 
-    collated := make(CollatedYears, 0)
+	collated := make(CollatedYears, 0)
 
-    _collated := make(map[string]*CollatedYear)
+	_collated := make(map[string]*CollatedYear)
 
-    for _, post := range contents {
+	for _, post := range contents {
 
-        year := utils.Year(post.CreatedAt)
-        month := utils.Month(post.CreatedAt)
-        _month := time.Unix(post.CreatedAt, 0).Month()
+		year := utils.Year(post.CreatedAt)
+		month := utils.Month(post.CreatedAt)
+		_month := time.Unix(post.CreatedAt, 0).Month()
 
-        yearc := _collated[year]
-        if yearc == nil {
-            yearc = &CollatedYear{year, make([]*CollatedMonth, 0), make(map[string]*CollatedMonth)}
-            _collated[year] = yearc
-        }
-        monthc := yearc.months[month]
-        if monthc == nil {
-            monthc = &CollatedMonth{month, []*Article{}, _month}
-            yearc.months[month] = monthc
-        }
-        monthc.Posts = append(monthc.Posts, post)
-    }
+		yearc := _collated[year]
+		if yearc == nil {
+			yearc = &CollatedYear{year, make([]*CollatedMonth, 0), make(map[string]*CollatedMonth)}
+			_collated[year] = yearc
+		}
+		monthc := yearc.months[month]
+		if monthc == nil {
+			monthc = &CollatedMonth{month, []*Article{}, _month}
+			yearc.months[month] = monthc
+		}
+		monthc.Posts = append(monthc.Posts, post)
+	}
 
-    for _, yearc := range _collated {
-        monthArray := make(CollatedMonths, 0)
-        for _, monthc := range yearc.months {
-            monthArray = append(monthArray, monthc)
-        }
+	for _, yearc := range _collated {
+		monthArray := make(CollatedMonths, 0)
+		for _, monthc := range yearc.months {
+			monthArray = append(monthArray, monthc)
+		}
 
-        sort.Sort(monthArray)
+		sort.Sort(monthArray)
 
-        yearc.months = nil
-        yearc.Months = monthArray
-        collated = append(collated, yearc)
-    }
+		yearc.months = nil
+		yearc.Months = monthArray
+		collated = append(collated, yearc)
+	}
 
-    sort.Sort(collated)
-    return collated
+	sort.Sort(collated)
+	return collated
 }
 
 //获取菜单数组
 func GetCate() map[string]*Category {
-    return cates
+	return cates
 }
 
 // 获取tag
 func GetTag() map[string]*Tag {
-    return tags
+	return tags
 }
 
 func loadContent(file string) (art *Article, err error) {
 
-    art = &Article{}
+	art = &Article{}
 
-    ctx, err := ReadMuCtx(file)
+	ctx, err := ReadMuCtx(file)
 
-    if err != nil {
-        return nil, err
-    }
+	if err != nil {
+		return nil, err
+	}
 
-    sumLines := conf.SiteSumLine()
+	sumLines := conf.SiteSumLine()
 
-    summary, err := makeSummary(ctx.Content, sumLines)
+	summary, err := makeSummary(ctx.Content, sumLines)
 
-    if err != nil {
-        return nil, err
-    }
+	if err != nil {
+		return nil, err
+	}
 
-    art.Title = ctx.Title
-    art.Description = ctx.Description
-    art.Category = ctx.Categories
-    art.Tags = ctx.Tags
-    art.Summary = summary
-    art.Content = utils.MarkdownToHtml(ctx.Content)
-    art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)
+	art.Title = ctx.Title
+	art.Description = ctx.Description
+	art.Category = ctx.Categories
+	art.Tags = ctx.Tags
+	art.Summary = summary
+	art.Content = utils.MarkdownToHtml(ctx.Content)
+	art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)
 
-    return art, nil
+	return art, nil
 }
 
 // 获取所有的文章
@@ -160,24 +159,24 @@ func GetAllArt() []*Article {
 
 // 获取about内容
 func GetAbout() (art *Article, err error) {
-    art = &Article{}
-    about := path.Join(conf.DirMark(), "/about.md")
+	art = &Article{}
+	about := path.Join(conf.DirMark(), "/about.md")
 
-    if _, err := os.Stat(about); os.IsNotExist(err) {
-        return art, nil
-    }
+	if _, err := os.Stat(about); os.IsNotExist(err) {
+		return art, nil
+	}
 
-    content, err := ioutil.ReadFile(about)
+	content, err := ioutil.ReadFile(about)
 
-    if err != nil {
-        return nil, err
-    }
+	if err != nil {
+		return nil, err
+	}
 
-    art.Title = ""
-    art.Content = utils.MarkdownToHtml(string(content))
-    art.CreatedAt = time.Now().Unix()
+	art.Title = ""
+	art.Content = utils.MarkdownToHtml(string(content))
+	art.CreatedAt = time.Now().Unix()
 
-    return art, nil
+	return art, nil
 }
 
 // 获取 markdown 文件夹下所有文件
@@ -211,30 +210,29 @@ func Marklist() (mdlist []string) {
 	return mdlist
 }
 
-
 // 根据文件获取摘要信息
 func makeSummary(content string, lines int) (string, error) {
-    buff := bufio.NewReader(bytes.NewBufferString(content))
-    dst := ""
-    for lines > 0 {
-        line, err := buff.ReadString('\n')
-        if err != nil || io.EOF == err {
-            break
-        }
+	buff := bufio.NewReader(bytes.NewBufferString(content))
+	dst := ""
+	for lines > 0 {
+		line, err := buff.ReadString('\n')
+		if err != nil || io.EOF == err {
+			break
+		}
 
-        if strings.Contains(line, "[toc]") {
-            continue
-        }
+		if strings.Contains(line, "[toc]") {
+			continue
+		}
 
-        if strings.Trim(line, "\r\n\t ") == "```" {
-            continue
-        }
+		if strings.Trim(line, "\r\n\t ") == "```" {
+			continue
+		}
 
-        dst += line
-        lines--
-    }
+		dst += line
+		lines--
+	}
 
-    return utils.MarkdownToHtml(dst), nil
+	return utils.MarkdownToHtml(dst), nil
 }
 
 // 根据内容获取摘要信息
@@ -261,7 +259,6 @@ func summary(content string, n int) string {
 	return summary
 }
 
-
 // 配置生产路径
 func CreatePostLink(art *Article) string {
 	t := time.Unix(art.CreatedAt, 0)
@@ -274,12 +271,12 @@ func CreatePostLink(art *Article) string {
 }
 
 type mustring struct {
-    Title       string
-    Description string
-    Date        string
-    Categories  []string
-    Tags        []string
-    Content     string
+	Title       string
+	Description string
+	Date        string
+	Categories  []string
+	Tags        []string
+	Content     string
 }
 
 func ReadMuCtx(path string) (ctx *mustring, err error) {
@@ -295,7 +292,7 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 		return nil, err
 	}
 	if !strings.HasPrefix(line, "---") {
-		err = errors.New("Not Start with ---   : " + path)
+		err = fmt.Errorf("markdown file format error, the file header must start with '---' : " + path)
 		return nil, err
 	}
 
@@ -314,24 +311,24 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 		buf.WriteString(line)
 	}
 
-    err = yaml.Unmarshal(buf.Bytes(), &ctx)
+	err = yaml.Unmarshal(buf.Bytes(), &ctx)
 
-    content, err := ioutil.ReadAll(br)
-    if err != nil {
-        return nil, err
-    }
+	content, err := ioutil.ReadAll(br)
+	if err != nil {
+		return nil, err
+	}
 
-    fi, _ := f.Stat()
+	fi, _ := f.Stat()
 
-    if ctx.Title == "" {
-        ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), conf.DirMark()+"/", "", 1)
-    }
+	if ctx.Title == "" {
+		ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), conf.DirMark()+"/", "", 1)
+	}
 
-    if ctx.Date == "" {
-        ctx.Date = utils.Format(fi.ModTime().Unix())
-    }
+	if ctx.Date == "" {
+		ctx.Date = utils.Format(fi.ModTime().Unix())
+	}
 
-    ctx.Content = string(content)
+	ctx.Content = string(content)
 
 	return
 }
