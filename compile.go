@@ -307,9 +307,9 @@ func CrearteMark(filename string) string {
 	masthead := `---
 date: `+ date +`
 time: `+ now +`
-title:
+title: `+ filename +`
 categories:
-- 技术
+-
 tags:
 -
 -
