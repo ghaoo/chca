@@ -224,6 +224,10 @@ func makeSummary(content string, lines int) (string, error) {
 			continue
 		}
 
+		if strings.Contains(line, "![](") {
+			continue
+		}
+
 		if strings.Trim(line, "\r\n\t ") == "```" {
 			continue
 		}
