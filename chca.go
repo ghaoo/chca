@@ -9,7 +9,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/num5/chca/conf"
+	"github.com/num5/fdf/conf"
 )
 
 const (
@@ -17,23 +17,23 @@ const (
 
 Usage:
 
-    chca command [args...]
+    fdf command [args...]
 
 初始化博客文件夹
 
-    chca init
+    fdf init
 
 新建 markdown 文件
 
-    chca new filename
+    fdf new filename
 
 编译博客
 
-    chca compile
+    fdf compile
 
 打开文件服务器
 
-    chca http "port"
+    fdf http "port"
 
 	`
 )
