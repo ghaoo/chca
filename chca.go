@@ -9,7 +9,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/num5/fdf/conf"
+	"github.com/num5/chca/conf"
 )
 
 const (
