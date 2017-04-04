@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/num5/chca/conf"
-	"github.com/num5/chca/utils"
+	"github.com/num5/fdf/conf"
+	"github.com/num5/fdf/utils"
 	"gopkg.in/yaml.v2"
 )
 
