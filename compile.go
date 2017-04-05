@@ -305,9 +305,9 @@ func CrearteMark(filename string) string {
 	date := time.Now().Format("2006-01-02")
 	now := time.Now().Format("15:04:05")
 	masthead := `---
-date: `+ date +`
-time: `+ now +`
-title: `+ filename +`
+date: ` + date + `
+time: ` + now + `
+title: ` + filename + `
 categories:
 -
 tags:

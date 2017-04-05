@@ -229,7 +229,9 @@ a:hover, a:active {
     font-size: 16px;
     font-family: Open Sans; }
 .post .post-content img {
-    min-width: 100%; }
+    max-width: 100%;
+    min-width: 700px;
+}
 .post .post-footer {
     padding: 0 0 30px 0;
     border-bottom: 1px solid #FFD8C9; }

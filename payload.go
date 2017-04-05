@@ -16,6 +16,7 @@ import (
 	"github.com/num5/chca/conf"
 	"github.com/num5/chca/utils"
 	"gopkg.in/yaml.v2"
+	"regexp"
 )
 
 var (
@@ -221,6 +222,11 @@ func makeSummary(content string, lines int) (string, error) {
 		}
 
 		if strings.Contains(line, "[toc]") {
+			continue
+		}
+
+		reg := regexp.MustCompile(`!\[(.*)\]\((.*)\)`)
+		if reg.MatchString(line) {
 			continue
 		}
 

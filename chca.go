@@ -17,23 +17,23 @@ const (
 
 Usage:
 
-    fdf command [args...]
+    chca command [args...]
 
-初始化博客文件夹
+	初始化博客文件夹
 
-    fdf init
+    	chca init
 
-新建 markdown 文件
+	新建 markdown 文件
 
-    fdf new filename
+    	chca new filename
 
-编译博客
+	编译博客
 
-    fdf compile
+    	chca compile
 
-打开文件服务器
+	打开文件服务器
 
-    fdf http "port"
+    	chca http "port"
 
 	`
 )

@@ -1,15 +1,15 @@
 package utils
 
 import (
+	"bufio"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
-	"bufio"
-	"fmt"
 )
 
 func BasePath() string {
