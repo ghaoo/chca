@@ -57,9 +57,10 @@ mail = 378999587@qq.com  //email 地址
 初始化以后需要在conf.ini文件同目录下创建theme文件夹用于存放模板文件
 
 > **关于模板文件的创建**
-> 模板文件夹结构
-> |-blog
-> |-blog-assets
-> |-blog-assets-css
-> |-blog-assets-js
+
+模板文件夹结构
+|-blog
+|-blog-assets
+|-blog-assets-css
+|-blog-assets-js
 
