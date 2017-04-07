@@ -30,7 +30,7 @@ go get -v github.com/num5/chca
 ```go
 # conf.ini
 
-[site] #网站设置
+[site] //网站设置
 
 title = 我的网站 #网站标题
 subtitle = 网站标题 #网站次标题
