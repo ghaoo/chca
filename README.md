@@ -29,53 +29,28 @@ go get -v github.com/num5/chca
 
 ```go
 # conf.ini
-# 网站设置
-[site]
-# 网站标题
-title = 我的网站
 
-# 网站次标题
-subtitle = 网站标题
+[site] #网站设置
 
-# 主页 mate-description 的简介
-description = mate-description
+title = 我的网站 #网站标题
+subtitle = 网站标题 #网站次标题
+description = mate-description #主页 mate-description 的简介
+keywords = mate-keywords #主页 mate-keywords 关键字
+summary_line = 10  #文章摘要行数（行数指的是markdown文件的行数）
 
-# 主页 mate-keywords 关键字
-keywords = mate-keywords
+[dir] #文件夹设置
 
-# 文章摘要行数（行数指的是markdown文件的行数）
-summary_line = 10
+theme = blog #网站模板
+markdown = markdown  #博客markdown文件存放文件夹
+html = /var/www/html  #博客html文件存放文件夹
+storage = storage  #数据存放文件夹，暂时未用到
 
-# 文件夹设置
-[dir]
+[author] # 作者信息设置
 
-# 网站模板
-theme = blog
-
-# 博客markdown文件存放文件夹
-markdown = markdown
-
-# 博客html文件存放文件夹
-html = /var/www/html
-
-# 数据存放文件夹，暂时未用到
-storage = storage
-
-# 作者信息设置
-[author]
-# 作者名称
-name = my name
-
-# 头像
-avatar = /assets/avatar.png
-
-# github 地址
-github = https://github.com/num5
-
-# 微博地址
-weibo = http://weibo.com/golune
-
-# email 地址
-mail = 378999587@qq.com
+name = my name #作者名称
+avatar = /assets/avatar.png #头像
+github = https://github.com/num5 #github 地址
+weibo = http://weibo.com/golune #微博地址
+mail = 378999587@qq.com # email 地址
 
 ```
