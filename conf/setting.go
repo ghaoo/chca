@@ -8,24 +8,26 @@ import (
 var confile = ConfigFile
 
 var conf_setting = `[site]
-title = Golune
-subtitle = 十年拿大锤，看什么都是钉子
-description = 专注golang，php，python，c/c++等语言开发，服务器开发
-keywords = golang,php,laravel,服务器
+title = 我的网站
+subtitle = 网站标题
+description = mate-description
+keywords = mate-keywords
 summary_line = 10
 
 [dir]
+
 theme = blog
 markdown = markdown
-html = /data/www/golune
+html = /var/www/html
 storage = storage
 
 [author]
-name = guhao
+
+name = my name
 avatar = /assets/avatar.png
 github = https://github.com/num5
 weibo = http://weibo.com/golune
-mail = 378999587@qq.com`
+mail = 378999587@qq.com
 
 func InitConf() {
 
