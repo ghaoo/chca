@@ -56,8 +56,6 @@ mail = 378999587@qq.com  //email 地址
 ```
 初始化以后需要在conf.ini文件同目录下创建theme文件夹用于存放模板文件
 
-> **关于模板文件的创建**
-
 模板文件夹结构
 - blog  模版文件夹
 - -- assets  资源文件夹
@@ -72,6 +70,22 @@ mail = 378999587@qq.com  //email 地址
 - -- -- tag.html 标签导航页
 - -- -- page.html    标签、导航和分类列表页面
 
-关于 `标签页面` ，可以从关键字
+
+#### chca new filename
+
+> 新建markdown文件
+
+markdown文件需要以 `---` 开头进行说明：
+```md
+---
+date: 2017-01-01
+title: 我的博客
+categories:
+- 技术
+tags:
+- golang
+---
+```
+
 
 
