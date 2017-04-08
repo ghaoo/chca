@@ -6,6 +6,10 @@
 go get -v github.com/num5/chca
 ```
 
+或者下载安装
+
+https://github.com/num5/chca/releases
+
 ### 使用
 
 ```bash
@@ -86,6 +90,21 @@ tags:
 - golang
 ---
 ```
+建议使用chca创建markdown文件
 
+about.md文件是存放作者简历的文件，存放在markdown文件夹
+readme.md和about.md不会被文章解析器解析
+
+#### chca compile
+
+> 生成html文件
+
+#### chca http 8800
+
+> 打开内部服务器，监听端口8800
+
+# License
+
+etcd is under the Apache 2.0 license. See the LICENSE file for details.
 
 
