@@ -225,8 +225,8 @@ func CompileCategory() {
 // 编译tag导航页
 func CompileTagPage() {
 
-	data["cate"] = GetCate()
-	data["tag"] = GetTag()
+	data["cates"] = GetCate()
+	data["tags"] = GetTag()
 	data["tpl"] = conf.DirTheme() + "/layout/tag.html"
 
 	filepath := path.Join(conf.DirHtml(), "tag")
