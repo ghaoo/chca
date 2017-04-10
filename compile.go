@@ -13,7 +13,7 @@ import (
 )
 
 var data = map[string]interface{}{
-	"title":       conf.SiteTitle(),
+	"sitetitle":   conf.SiteTitle(),
 	"subtitle":    conf.SiteSubTitle(),
 	"description": conf.SiteDescription(),
 	"keywords":    conf.SiteKeywords(),
