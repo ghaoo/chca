@@ -77,6 +77,7 @@ func CompileArticle() {
 
 		data["article"] = art
 		data["cate"] = GetCate()
+		data["title"] = art.Title
 
 		url := CreatePostLink(art)
 		filepath := path.Join(conf.DirHtml(), url)
