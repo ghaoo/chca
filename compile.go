@@ -13,7 +13,7 @@ import (
 )
 
 var data = map[string]interface{}{
-	"sitetitle":   conf.SiteTitle(),
+	"sitetitle":       conf.SiteTitle(),
 	"subtitle":    conf.SiteSubTitle(),
 	"description": conf.SiteDescription(),
 	"keywords":    conf.SiteKeywords(),
@@ -41,6 +41,8 @@ func Compile() {
 
 // 编译主页
 func CompileHome() {
+
+	data["title"] = "主页"
 
 	data["artlist"] = GetAllArt()
 	data["cate"] = GetCate()
@@ -72,12 +74,12 @@ func CompileArticle() {
 	for _, art := range artlist {
 		data["tpl"] = conf.DirTheme() + "/layout/post.html"
 
+		data["title"] = art.Title
 		data["description"] = art.Summary
 		data["keywords"] = strings.Join(art.Tags, ",")
 
 		data["article"] = art
 		data["cate"] = GetCate()
-		data["title"] = art.Title
 
 		url := CreatePostLink(art)
 		filepath := path.Join(conf.DirHtml(), url)
@@ -110,6 +112,8 @@ func CompileAbout() {
 		panic(err)
 	}
 
+	data["title"] = "我的简历"
+
 	data["tpl"] = conf.DirTheme() + "/layout/post.html"
 
 	data["article"] = about
@@ -132,6 +136,7 @@ func CompileAbout() {
 // 编译归档页
 func CompileArchive() {
 
+	data["title"] = "文章归档"
 	data["archive"] = GetArchive()
 	data["cate"] = GetCate()
 	data["tpl"] = conf.DirTheme() + "/layout/archive.html"
@@ -161,6 +166,7 @@ func CompileArchive() {
 // 编译cate导航页
 func CompileCatePage() {
 
+	data["title"] = "文章分类"
 	data["cate"] = GetCate()
 	data["tpl"] = conf.DirTheme() + "/layout/category.html"
 
@@ -194,6 +200,7 @@ func CompileCategory() {
 
 	for _, cate := range cates {
 
+		data["title"] = "分类-" + cate.Name
 		data["ptitle"] = cate.Name
 		data["content"] = cate.Posts
 		data["count"] = cate.Count
@@ -226,6 +233,7 @@ func CompileCategory() {
 // 编译tag导航页
 func CompileTagPage() {
 
+	data["title"] = "文章标签"
 	data["cate"] = GetCate()
 	data["tags"] = GetTag()
 	data["tpl"] = conf.DirTheme() + "/layout/tag.html"
@@ -260,6 +268,7 @@ func CompileTag() {
 
 	for _, tag := range tags {
 
+		data["title"] = "标签-" + tag.Name
 		data["ptitle"] = tag.Name
 		data["content"] = tag.Posts
 		data["count"] = tag.Count
