@@ -80,7 +80,9 @@ mail = 378999587@qq.com  //email 地址
 > 新建markdown文件
 
 markdown文件需要以 `---` 开头进行说明：
-```md
+
+```bash
+
 ---
 date: 2017-01-01
 title: 我的博客
