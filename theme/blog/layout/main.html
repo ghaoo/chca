@@ -31,7 +31,12 @@
     <div class="logo-title">
         <div class="title animated fadeInDown">
             <img src="{{ .avatar }}" style="width:127px;border-radius: 50%;">
-            <h2 title="{{ .sitetitle }}"><a href="http://blog.golune.com">{{ .sitetitle }}</a></h2>
+            <!--<h2 title="{{ .sitetitle }}">
+                <a href="http://blog.golune.com">{{ .sitetitle }}</a>
+            </h2>-->
+            <hgroup>
+                <h1 class="header-author"><a href="http://blog.golune.com">{{ .sitetitle }}</a></h1>
+            </hgroup>
 
             <div class="description animated fadeInDown">
                 <p>{{ .subtitle }}</p>
