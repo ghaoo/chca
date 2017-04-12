@@ -27,7 +27,7 @@ name = my name
 avatar = /assets/avatar.png
 github = https://github.com/num5
 weibo = http://weibo.com/golune
-mail = 378999587@qq.com
+mail = 378999587@qq.com`
 
 func InitConf() {
 
