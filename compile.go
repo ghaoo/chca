@@ -62,7 +62,7 @@ func CompileHome() {
 	}
 
 	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 	t.Walk(conf.DirTheme()+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
@@ -99,7 +99,7 @@ func CompileArticle() {
 		}
 
 		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 		t.Walk(conf.DirTheme()+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
@@ -128,7 +128,7 @@ func CompileAbout() {
 	}
 
 	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 	t.Walk(conf.DirTheme()+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
@@ -158,7 +158,7 @@ func CompileArchive() {
 	}
 
 	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 	t.Walk(conf.DirTheme()+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
@@ -187,7 +187,7 @@ func CompileCatePage() {
 	}
 
 	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 	t.Walk(conf.DirTheme()+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
@@ -223,7 +223,7 @@ func CompileCategory() {
 		}
 
 		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 		t.Walk(conf.DirTheme()+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
@@ -255,7 +255,7 @@ func CompileTagPage() {
 	}
 
 	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 	t.Walk(conf.DirTheme()+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
@@ -291,7 +291,7 @@ func CompileTag() {
 		}
 
 		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
-		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq})
+		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
 		t.Walk(conf.DirTheme()+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
