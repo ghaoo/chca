@@ -50,24 +50,27 @@
         </li>
     </ul>
 
-
-
-
-    <div class="footer">
-        <!--footer-->
+    <div class="cate-list animated fadeInDown">
         分类：
-
         {{ range .cate }}
 
-            <span>
+        <span class="cate-title">
                 <a href="{{ .Url }}">
                     {{ .Name }}
                 </a>&nbsp;
             </span>
 
         {{ end }}
+    </div>
+
+    <div class="footer">
+        <!--footer-->
+
+        <span>© Guhao's Blog 2015 - 2017. &nbsp;&nbsp;</span>
+        <span>Powered by <a href="https://github.com/num5/chca">CHCA</a>. </span>
 
     </div>
+
 </div>
 
 <!------------------------------left-end---------------------------->

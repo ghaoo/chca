@@ -122,6 +122,24 @@ code, tt {
     color: #d14;
     border-radius: 2px; }
 
+.label {
+    padding: 1px 5px 1px;
+    font-size: 11.25px;
+    font-weight: bold;
+    font-family: 'Lato', "Open Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #999;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 1mm;
+}
+.label-important {
+    background-color: #b94a48;
+    margin-right: 2mm;
+}
+
 pre {
     -moz-box-sizing: border-box;
     box-sizing: border-box;

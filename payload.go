@@ -17,6 +17,7 @@ import (
 	"github.com/num5/chca/utils"
 	"gopkg.in/yaml.v2"
 	"regexp"
+	"github.com/go-fsnotify/fsnotify"
 )
 
 var (
@@ -338,3 +339,79 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 
 	return
 }
+
+type watch struct {}
+func (w *watch)  watcher(paths []string) error {
+	//初始化监听器
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Events:
+				build := true
+				if !w.checkIfWatchExt(event.Name) {
+					continue
+				}
+				if event.Op&fsnotify.Chmod == fsnotify.Chmod {
+					ColorLog("[SKIP] [ %s ] \n", event)
+					continue
+				}
+
+				mt := w.getFileModTime(event.Name)
+				if t := eventTime[event.Name]; mt == t {
+					ColorLog("[SKIP] [ %s ] \n", event.String())
+					build = false
+				}
+
+				eventTime[event.Name] = mt
+
+			/*if(strings.HasSuffix(event.Name, ".go")){
+				build = true
+			}*/
+
+				if build {
+					go func() {
+						scheduleTime = time.Now().Add(1 * time.Second)
+						for {
+							time.Sleep(scheduleTime.Sub(time.Now()))
+							if time.Now().After(scheduleTime) {
+								break
+							}
+							return
+						}
+						ColorLog("[TRAC] 触发编译事件: < %s > \n", event)
+						w.build()
+					}()
+				}
+
+			case err := <-watcher.Errors:
+				ColorLog("[ERRO] 监控失败 [ %s ] \n", err)
+			}
+		}
+	}()
+
+	for _, path := range paths {
+		ColorLog("[TRAC] 监视文件夹: ( %s ) \n", path)
+		err = watcher.Add(path)
+		if err != nil {
+			ColorLog("[ERRO] 监视文件夹失败: [ %s ] \n", err)
+			os.Exit(2)
+		}
+	}
+
+	return nil
+}
+
+func (w *watch) checkIfWatchExt(name string) bool {
+	for _, s := range watchExts {
+		if strings.HasSuffix(name, s) {
+			return true
+		}
+	}
+	return false
+}
+
