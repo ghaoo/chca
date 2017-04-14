@@ -59,7 +59,7 @@ type CollatedMonth struct {
 
 type Website struct {
 	Title       string `yaml:"title"`
-	SubTitle    string `yaml:"sub_title"`
+	SubTitle    string `yaml:"subtitle"`
 	Description string `yaml:"description"`
 	Keywords    string `yaml:"keywords"`
 	SummaryLine int    `yaml:"summary_line"`
