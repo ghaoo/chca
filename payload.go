@@ -337,17 +337,20 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 }
 
 var yaml_setting = `
+# 站点信息
 title: 我的网站
 subtitle: 网站标题
 description: mate-description
 keywords: mate-keywords
 summary_line: 10
 
+# 文件夹相关
 theme: theme/blog
 markdown: markdown
 html: /data/www/html
 storage: storage
 
+# 作者信息
 author: your name
 avatar: /assets/avatar.png
 github: https://github.com/num5
@@ -355,11 +358,16 @@ weibo: http://weibo.com/golune
 mail: 378999587@qq.com
 zhihu: https://www.zhihu.com/people/golune
 
+# 监听信息
 paths:
   - markdown
 exts:
   - md
   - yml
+
+# 上传信息
+upload_theme: theme/upload
+
 `
 
 func createConf() {

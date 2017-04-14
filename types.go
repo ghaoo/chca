@@ -76,8 +76,10 @@ type Website struct {
 	Mail   string `yaml:"mail"`
 	Zhihu  string `yaml:"zhihu"`
 
-	Paths []string
-	Exts  []string
+	Paths []string `yaml:"paths"`
+	Exts  []string `yaml:"exts"`
+
+	UploadTheme string `yaml:"upload_theme"`
 }
 
 type CollatedYears []*CollatedYear
