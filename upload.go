@@ -33,6 +33,16 @@ func (fh *FileHandler) Http() {
 }
 
 func (fh *FileHandler) index(w http.ResponseWriter, r *http.Request) {
+
+	user := r.FormValue("u")
+	password := r.FormValue("p")
+
+	if user != "guhao" || password != "gghao" {
+		w.Write([]byte("未找到页面"))
+		w.WriteHeader(404)
+		return
+	}
+
 	t, err := template.ParseFiles(fh.tplPath + "/index.html")
 	if err != nil {
 		log.Errorf("解析主页模版失败：%s", err)
