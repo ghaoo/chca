@@ -1,29 +1,37 @@
 package main
 
 import (
-	"log"
 	"os"
 	"path"
 	"strings"
 	"time"
-
-	"github.com/num5/chca/conf"
+	
 	"github.com/num5/chca/template"
 	"github.com/num5/chca/utils"
 )
 
 var data = map[string]interface{}{
-	"sitetitle":       conf.SiteTitle(),
-	"subtitle":    conf.SiteSubTitle(),
-	"description": conf.SiteDescription(),
-	"keywords":    conf.SiteKeywords(),
-	"author":      conf.Author(),
-	"avatar":      conf.Avatar(),
-	"github":      conf.Github(),
-	"weibo":       conf.Weibo(),
+	"sitetitle":   Config().Title,
+	"subtitle":    Config().SubTitle,
+	"description": Config().Description,
+	"keywords":    Config().Keywords,
+	"author":      Config().Author,
+	"avatar":      Config().Avatar,
+	"github":      Config().Github,
+	"weibo":       Config().Weibo,
+	"zhihu":       Config().Zhihu,
 }
 
 func Compile() {
+
+	defer func() {
+		if err := recover(); err != nil {
+			log.Fatalf("panic 错误: %s\n", err)
+		}
+	}()
+
+	log.Tracf("开始编译博客...")
+
 	checkFile()
 	copy()
 
@@ -37,6 +45,8 @@ func Compile() {
 	CompileCategory()
 	CompileTag()
 	CompileAbout()
+
+	log.Debug("编译完成...\n")
 }
 
 // 编译主页
@@ -46,24 +56,24 @@ func CompileHome() {
 
 	data["artlist"] = GetAllArt()
 	data["cate"] = GetCate()
-	data["tpl"] = conf.DirTheme() + "/layout/index.html"
+	data["tpl"] = Config().Theme + "/layout/index.html"
 
-	err := utils.MkDir(conf.DirHtml())
+	err := utils.MkDir(Config().Html)
 
 	if err != nil {
 		panic(err)
 	}
 
-	homepath := path.Join(conf.DirHtml(), "index.html")
+	homepath := path.Join(Config().Html, "index.html")
 
 	htmlfile, err := os.Create(homepath)
 	if err != nil {
 		panic(err)
 	}
 
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t, _ := template.New(Config().Theme + "/layout/main.html")
 	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Walk(Config().Theme+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
 
@@ -72,7 +82,7 @@ func CompileArticle() {
 	artlist := GetAllArt()
 
 	for _, art := range artlist {
-		data["tpl"] = conf.DirTheme() + "/layout/post.html"
+		data["tpl"] = Config().Theme + "/layout/post.html"
 
 		data["title"] = art.Title
 		data["description"] = art.Summary
@@ -82,7 +92,7 @@ func CompileArticle() {
 		data["cate"] = GetCate()
 
 		url := CreatePostLink(art)
-		filepath := path.Join(conf.DirHtml(), url)
+		filepath := path.Join(Config().Html, url)
 
 		err := utils.MkDir(filepath)
 
@@ -98,9 +108,9 @@ func CompileArticle() {
 			panic(err)
 		}
 
-		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+		t, _ := template.New(Config().Theme + "/layout/main.html")
 		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-		t.Walk(conf.DirTheme()+`/layout`, ".html")
+		t.Walk(Config().Theme+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
 }
@@ -114,12 +124,12 @@ func CompileAbout() {
 
 	data["title"] = "我的简历"
 
-	data["tpl"] = conf.DirTheme() + "/layout/post.html"
+	data["tpl"] = Config().Theme + "/layout/post.html"
 
 	data["article"] = about
 	data["cate"] = GetCate()
 
-	filepath := path.Join(conf.DirHtml(), "about.html")
+	filepath := path.Join(Config().Html, "about.html")
 
 	htmlfile, err := os.Create(filepath)
 
@@ -127,9 +137,9 @@ func CompileAbout() {
 		panic(err)
 	}
 
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t, _ := template.New(Config().Theme + "/layout/main.html")
 	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Walk(Config().Theme+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
 
@@ -139,9 +149,9 @@ func CompileArchive() {
 	data["title"] = "文章归档"
 	data["archive"] = GetArchive()
 	data["cate"] = GetCate()
-	data["tpl"] = conf.DirTheme() + "/layout/archive.html"
+	data["tpl"] = Config().Theme + "/layout/archive.html"
 
-	filepath := path.Join(conf.DirHtml(), "archive")
+	filepath := path.Join(Config().Html, "archive")
 
 	err := utils.MkDir(filepath)
 
@@ -157,9 +167,9 @@ func CompileArchive() {
 		panic(err)
 	}
 
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t, _ := template.New(Config().Theme + "/layout/main.html")
 	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Walk(Config().Theme+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
 
@@ -168,9 +178,9 @@ func CompileCatePage() {
 
 	data["title"] = "文章分类"
 	data["cate"] = GetCate()
-	data["tpl"] = conf.DirTheme() + "/layout/category.html"
+	data["tpl"] = Config().Theme + "/layout/category.html"
 
-	filepath := path.Join(conf.DirHtml(), "category")
+	filepath := path.Join(Config().Html, "category")
 
 	err := utils.MkDir(filepath)
 
@@ -186,9 +196,9 @@ func CompileCatePage() {
 		panic(err)
 	}
 
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t, _ := template.New(Config().Theme + "/layout/main.html")
 	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Walk(Config().Theme+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
 
@@ -204,9 +214,9 @@ func CompileCategory() {
 		data["ptitle"] = cate.Name
 		data["content"] = cate.Posts
 		data["count"] = cate.Count
-		data["tpl"] = conf.DirTheme() + "/layout/page.html"
+		data["tpl"] = Config().Theme + "/layout/page.html"
 
-		filepath := path.Join(conf.DirHtml(), "category", cate.Name)
+		filepath := path.Join(Config().Html, "category", cate.Name)
 
 		err := utils.MkDir(filepath)
 
@@ -222,9 +232,9 @@ func CompileCategory() {
 			panic(err)
 		}
 
-		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+		t, _ := template.New(Config().Theme + "/layout/main.html")
 		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-		t.Walk(conf.DirTheme()+`/layout`, ".html")
+		t.Walk(Config().Theme+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
 
@@ -236,9 +246,9 @@ func CompileTagPage() {
 	data["title"] = "文章标签"
 	data["cate"] = GetCate()
 	data["tags"] = GetTag()
-	data["tpl"] = conf.DirTheme() + "/layout/tag.html"
+	data["tpl"] = Config().Theme + "/layout/tag.html"
 
-	filepath := path.Join(conf.DirHtml(), "tag")
+	filepath := path.Join(Config().Html, "tag")
 
 	err := utils.MkDir(filepath)
 
@@ -254,9 +264,9 @@ func CompileTagPage() {
 		panic(err)
 	}
 
-	t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+	t, _ := template.New(Config().Theme + "/layout/main.html")
 	t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-	t.Walk(conf.DirTheme()+`/layout`, ".html")
+	t.Walk(Config().Theme+`/layout`, ".html")
 	t.Execute(htmlfile, data)
 }
 
@@ -272,9 +282,9 @@ func CompileTag() {
 		data["ptitle"] = tag.Name
 		data["content"] = tag.Posts
 		data["count"] = tag.Count
-		data["tpl"] = conf.DirTheme() + "/layout/page.html"
+		data["tpl"] = Config().Theme + "/layout/page.html"
 
-		filepath := path.Join(conf.DirHtml(), "tag", tag.Name)
+		filepath := path.Join(Config().Html, "tag", tag.Name)
 
 		err := utils.MkDir(filepath)
 
@@ -290,24 +300,24 @@ func CompileTag() {
 			panic(err)
 		}
 
-		t, _ := template.New(conf.DirTheme() + "/layout/main.html")
+		t, _ := template.New(Config().Theme + "/layout/main.html")
 		t = t.Funcs(template.FuncMap{"unescaped": utils.Unescaped, "cmonth": utils.CMonth, "format": utils.Format, "count": utils.Count, "lt": utils.Lt, "gt": utils.Gt, "eq": utils.Eq, "md5": utils.Xmd5})
-		t.Walk(conf.DirTheme()+`/layout`, ".html")
+		t.Walk(Config().Theme+`/layout`, ".html")
 		t.Execute(htmlfile, data)
 	}
 
 }
 
 func CrearteMark(filename string) string {
-	file := path.Join(conf.DirMark(), filename+".md")
+	file := path.Join(Config().Markdown, filename+".md")
 
 	_, err := os.Stat(file)
 	if !os.IsNotExist(err) {
-		log.Println("已存在文件")
+		log.Errorf("已存在文件")
 		os.Exit(1)
 	}
 
-	src, err := utils.CreateFile(conf.DirMark(), filename+".md")
+	src, err := utils.CreateFile(Config().Markdown, filename+".md")
 	if err != nil {
 		panic(err)
 	}
@@ -335,12 +345,12 @@ tags:
 func copy() {
 
 	// copy 配置文件
-	/*_, err := utils.CopyFile("conf.ini", path.Join(conf.DirHtml(), "conf.ini"))
+	/*_, err := utils.CopyFile("conf.ini", path.Join(Config().Html, "conf.ini"))
 	  if err != nil {
 	      panic(err)
 	  }*/
 
-	err := utils.CopyDir(path.Join(conf.DirTheme(), "assets"), path.Join(conf.DirHtml(), "assets"))
+	err := utils.CopyDir(path.Join(Config().Theme, "assets"), path.Join(Config().Html, "assets"))
 	if err != nil {
 		panic(err)
 	}
@@ -348,12 +358,7 @@ func copy() {
 }
 
 func checkFile() {
-	if _, err := os.Stat(conf.DirTheme()); os.IsNotExist(err) {
-		log.Println("需要先初始化并添加模板文件")
-		os.Exit(2)
+	if _, err := os.Stat(Config().Theme); os.IsNotExist(err) {
+		panic("需要先初始化并添加模板文件")
 	}
-
-	/*if _, err := os.Stat(conf.DirStor()); os.IsNotExist(err) {
-		panic("需要先初始化")
-	}*/
 }

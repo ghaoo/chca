@@ -57,6 +57,29 @@ type CollatedMonth struct {
 	month time.Month `json:"-"`
 }
 
+type Website struct {
+	Title       string `yaml:"title"`
+	SubTitle    string `yaml:"sub_title"`
+	Description string `yaml:"description"`
+	Keywords    string `yaml:"keywords"`
+	SummaryLine int    `yaml:"summary_line"`
+
+	Theme    string `yaml:"theme"`
+	Markdown string `yaml:"markdown"`
+	Html     string `yaml:"html"`
+	Storage  string `yaml:"storage"`
+
+	Author string `yaml:"name"`
+	Avatar string `yaml:"avatar"`
+	Github string `yaml:"github"`
+	Weibo  string `yaml:"weibo"`
+	Mail   string `yaml:"mail"`
+	Zhihu  string `yaml:"zhihu"`
+
+	Paths []string
+	Exts  []string
+}
+
 type CollatedYears []*CollatedYear
 
 func (c CollatedYears) Len() int {

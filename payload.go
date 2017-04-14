@@ -9,20 +9,16 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
 
-	"github.com/num5/chca/conf"
 	"github.com/num5/chca/utils"
-	"gopkg.in/yaml.v2"
-	"regexp"
-	"github.com/go-fsnotify/fsnotify"
+	"github.com/go-yaml/yaml"
 )
 
 var (
-	htmlStor = conf.DirHtml() //编译后保存的文件夹
-
 	contents []*Article
 	cates    map[string]*Category
 	tags     map[string]*Tag
@@ -135,7 +131,7 @@ func loadContent(file string) (art *Article, err error) {
 		return nil, err
 	}
 
-	sumLines := conf.SiteSumLine()
+	sumLines := Config().SummaryLine
 
 	summary, err := makeSummary(ctx.Content, sumLines)
 
@@ -162,7 +158,7 @@ func GetAllArt() []*Article {
 // 获取about内容
 func GetAbout() (art *Article, err error) {
 	art = &Article{}
-	about := path.Join(conf.DirMark(), "/about.md")
+	about := path.Join(Config().Markdown, "/about.md")
 
 	if _, err := os.Stat(about); os.IsNotExist(err) {
 		return art, nil
@@ -183,7 +179,7 @@ func GetAbout() (art *Article, err error) {
 
 // 获取 markdown 文件夹下所有文件
 func Marklist() (mdlist []string) {
-	mddir := conf.DirMark()
+	mddir := Config().Markdown
 
 	filepath.Walk(mddir, func(path string, f os.FileInfo, err error) error {
 
@@ -328,7 +324,7 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 	fi, _ := f.Stat()
 
 	if ctx.Title == "" {
-		ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), conf.DirMark()+"/", "", 1)
+		ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), Config().Markdown+"/", "", 1)
 	}
 
 	if ctx.Date == "" {
@@ -340,78 +336,80 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 	return
 }
 
-type watch struct {}
-func (w *watch)  watcher(paths []string) error {
-	//初始化监听器
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		return err
-	}
+var yaml_setting = `
+title: 我的网站
+subtitle: 网站标题
+description: mate-description
+keywords: mate-keywords
+summary_line: 10
 
-	go func() {
-		for {
-			select {
-			case event := <-watcher.Events:
-				build := true
-				if !w.checkIfWatchExt(event.Name) {
-					continue
-				}
-				if event.Op&fsnotify.Chmod == fsnotify.Chmod {
-					ColorLog("[SKIP] [ %s ] \n", event)
-					continue
-				}
+theme: theme/blog
+markdown: markdown
+html: /data/www/html
+storage: storage
 
-				mt := w.getFileModTime(event.Name)
-				if t := eventTime[event.Name]; mt == t {
-					ColorLog("[SKIP] [ %s ] \n", event.String())
-					build = false
-				}
+author: your name
+avatar: /assets/avatar.png
+github: https://github.com/num5
+weibo: http://weibo.com/golune
+mail: 378999587@qq.com
+zhihu: https://www.zhihu.com/people/golune
 
-				eventTime[event.Name] = mt
+paths:
+  - markdown
+exts:
+  - md
+  - yml
+`
 
-			/*if(strings.HasSuffix(event.Name, ".go")){
-				build = true
-			}*/
-
-				if build {
-					go func() {
-						scheduleTime = time.Now().Add(1 * time.Second)
-						for {
-							time.Sleep(scheduleTime.Sub(time.Now()))
-							if time.Now().After(scheduleTime) {
-								break
-							}
-							return
-						}
-						ColorLog("[TRAC] 触发编译事件: < %s > \n", event)
-						w.build()
-					}()
-				}
-
-			case err := <-watcher.Errors:
-				ColorLog("[ERRO] 监控失败 [ %s ] \n", err)
-			}
-		}
-	}()
-
-	for _, path := range paths {
-		ColorLog("[TRAC] 监视文件夹: ( %s ) \n", path)
-		err = watcher.Add(path)
+func createConf() {
+	_, err := os.Stat(confile)
+	if os.IsNotExist(err) {
+		_, err := os.OpenFile(confile, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
-			ColorLog("[ERRO] 监视文件夹失败: [ %s ] \n", err)
-			os.Exit(2)
+			panic(err)
+		}
+
+		var confwrite = []byte(yaml_setting)
+		err = ioutil.WriteFile(confile, confwrite, 0666) //写入文件(字节数组)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+func createDir() {
+
+	_, err := os.Stat(Config().Html)
+	if os.IsNotExist(err) {
+
+		if err := os.MkdirAll(Config().Html, os.ModePerm); err != nil {
+			panic(err)
 		}
 	}
 
-	return nil
-}
+	_, err = os.Stat(Config().Markdown)
+	if os.IsNotExist(err) {
 
-func (w *watch) checkIfWatchExt(name string) bool {
-	for _, s := range watchExts {
-		if strings.HasSuffix(name, s) {
-			return true
+		if err := os.MkdirAll(Config().Markdown, os.ModePerm); err != nil {
+			panic(err)
 		}
 	}
-	return false
-}
 
+	_, err = os.Stat(Config().Storage)
+	if os.IsNotExist(err) {
+
+		if err := os.MkdirAll(Config().Storage, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
+
+	_, err = os.Stat(Config().Theme)
+	if os.IsNotExist(err) {
+
+		if err := os.MkdirAll(Config().Theme, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
+
+}

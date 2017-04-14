@@ -1,16 +1,20 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
 
-	"github.com/num5/chca/conf"
+	"github.com/num5/loger"
 )
+
+var (
+	log *loger.Log
+	confile = "config.yml"
+)
+
 
 const (
 	HELP = `
@@ -26,10 +30,10 @@ chca command [args...]
     	chca new filename
 
 	编译博客
-    	chca compile
+    	chca compile/c
 
 	打开文件服务器
-    	chca http "port"
+    	chca http/web port
 
 	`
 )
@@ -43,6 +47,12 @@ var (
 )
 
 func main() {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Fatalf("panic 错误: %s\n", err)
+		}
+	}()
+
 	flag.Parse()
 	args = flag.Args()
 	if len(args) == 0 || len(args) > 3 {
@@ -63,11 +73,28 @@ func main() {
 
 			CrearteMark(name)
 		} else {
-			log.Println(errors.New("缺少文件名"))
+			log.Error("缺少文件名")
 		}
-	case "compile":
+	case "compile", "c":
 		Compile()
-	case "http":
+	case "watch", "w":
+		NewWatch(Config().Paths, Config().Exts).Watcher()
+		done := make(chan bool)
+		<-done
+	case "run":
+		NewWatch(Config().Paths, Config().Exts).Watcher()
+		var port int = 9900
+		if len(args) == 2 {
+			p, err := strconv.Atoi(args[1])
+			if err != nil {
+				panic(err)
+			}
+
+			port = p
+		}
+		_http(port)
+
+	case "http", "web":
 		var port int = 9900
 		if len(args) == 2 {
 			p, err := strconv.Atoi(args[1])
@@ -83,24 +110,38 @@ func main() {
 }
 
 func new() {
-
-	conf.InitConf()
-	conf.InitDir()
+	createConf()
+	createDir()
 }
 
 func _http(port int) {
 
+	log.Trac("打开内置web服务器...")
+
 	p := strconv.Itoa(port)
 
-	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(conf.DirHtml()+"/assets/"))))
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(Config().Html+"/assets/"))))
 
-	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(conf.DirHtml()))))
+	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(Config().Html))))
 
-	log.Println("监听端口 :" + p + "...")
+	log.Debugf("打开内置web服务器成功，监听端口 :%d...", port)
 
 	err := http.ListenAndServe(":"+p, nil)
 
 	if err != nil {
-		log.Printf("ListenAndServe: %s\n", err)
+		log.Errorf("ListenAndServe: %s", err)
 	}
+}
+
+func init() {
+
+	// 初始化Log
+	log = loger.NewLog(1000)
+	// 设置log级别
+	log.SetLevel("Debug")
+	// 设置输出引擎
+	log.SetEngine("file", `{"level":5, "spilt":"size", "filename":".logs/wechat.log", "maxsize":15}`)
+	//log.DelEngine("console")
+	// 设置是否输出行号
+	//log.SetFuncCall(true)
 }
