@@ -82,6 +82,7 @@ func main() {
 		done := make(chan bool)
 		<-done
 	case "run":
+		Compile()
 		NewWatch(Config().Paths, Config().Exts).Watcher()
 		var port int = 9900
 		if len(args) == 2 {
@@ -123,6 +124,9 @@ func _http(port int) {
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(Config().Html+"/assets/"))))
 
 	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(Config().Html))))
+
+	f := newFileHandler(Config().UploadTheme, Config().Markdown)
+	f.Http()
 
 	log.Debugf("打开内置web服务器成功，监听端口 :%d...", port)
 

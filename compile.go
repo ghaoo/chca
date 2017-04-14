@@ -45,7 +45,6 @@ func Compile() {
 	CompileCategory()
 	CompileTag()
 	CompileAbout()
-
 	log.Debug("编译完成...\n")
 }
 

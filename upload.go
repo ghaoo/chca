@@ -25,17 +25,11 @@ func newFileHandler(tpl, save string) *FileHandler {
 }
 
 func (fh *FileHandler) Http() {
-	log.Tracf("\n开启文件上传服务")
-	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(fh.tplPath+"/assets/"))))
+	http.Handle("/asset/", http.StripPrefix("/asset/", http.FileServer(http.Dir(fh.tplPath+"/asset/"))))
 	http.Handle("/file", http.StripPrefix("/file/", http.FileServer(http.Dir(fh.savePath))))
-	http.HandleFunc("/", fh.index)
+	http.HandleFunc("/markdown", fh.index)
 	http.HandleFunc("/upload", fh.upload)
 	http.HandleFunc("/files", fh.filewolk)
-	log.Tracf("文件上传服务监听端口：%d...", 8800)
-	err := http.ListenAndServe(":8800", nil)
-	if err != nil {
-		log.Errorf("开启文件上传服务器错误：%s", err.Error())
-	}
 }
 
 func (fh *FileHandler) index(w http.ResponseWriter, r *http.Request) {
