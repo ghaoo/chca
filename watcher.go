@@ -51,10 +51,6 @@ func (w *Watch) Watcher() {
 
 				eventTime[event.Name] = mt
 
-				/*if(strings.HasSuffix(event.Name, ".go")){
-					build = true
-				}*/
-
 				if build {
 					go func() {
 						scheduleTime = time.Now().Add(1 * time.Second)
