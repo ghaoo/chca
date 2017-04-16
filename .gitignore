@@ -1,5 +1,6 @@
 chca
-conf.ini
+conf.yaml
+conf.yml
 markdown/
 storage/
 .DS_Store
