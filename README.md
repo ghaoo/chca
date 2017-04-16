@@ -24,15 +24,18 @@ https://github.com/num5/chca/releases
 #编译博客
     chca compile
 
-# 打开文件服务器，必要参数 port
-    chca http "port"
+# 打开文件服务器， 默认端口9900
+    chca http [port]
+    
+# 运行chca， 默认端口9900
+    chca run [port]
 ```
 
 #### chca init
 > chca init 用于初始化博客，会自动生成config.yml
 
 ```go
-# conf.ini
+# config.yml
 
 [site]  //网站设置
 
@@ -104,6 +107,10 @@ readme.md和about.md不会被文章解析器解析
 #### chca http 8800
 
 > 打开内部服务器，监听端口8800
+
+#### chca run 8800
+
+> 打开内部服务器，监听端口8800，并开启文件监听器，监听文件夹和文件后缀名在config.yml里配置，
 
 # License
 
