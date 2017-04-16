@@ -32,8 +32,14 @@ chca command [args...]
 	编译博客
     	chca compile/c
 
+    打开文件监听器
+    	chca watch/w
+
 	打开文件服务器
-    	chca http/web port
+    	chca http/web [port]
+
+    运行chca所有服务，包括内置服务器、监听器
+    	chca run [port]
 
 	`
 )
