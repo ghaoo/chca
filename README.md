@@ -29,7 +29,7 @@ https://github.com/num5/chca/releases
 ```
 
 #### chca init
-> chca init 用于初始化博客，会自动生成conf.ini
+> chca init 用于初始化博客，会自动生成config.yml
 
 ```go
 # conf.ini
