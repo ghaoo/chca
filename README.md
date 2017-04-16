@@ -37,31 +37,39 @@ https://github.com/num5/chca/releases
 ```go
 # config.yml
 
-[site]  //网站设置
+# 站点信息
+title: 我的网站
+subtitle: 网站标题
+description: mate-description
+keywords: mate-keywords
+summary_line: 10
 
-title = 我的网站  //网站标题
-subtitle = 网站标题  //网站次标题
-description = mate-description  //主页 mate-description 的简介
-keywords = mate-keywords  //主页 mate-keywords 关键字
-summary_line = 10  //文章摘要行数（行数指的是markdown文件的行数）
+# 文件夹相关
+theme: theme/blog //网站模板
+markdown: markdown //博客markdown文件存放文件夹
+html: /data/www/html //博客html文件存放文件夹
+storage: storage //数据存放文件夹，暂时未用到
 
-[dir] //文件夹设置
+# 作者信息
+author: your name
+avatar: /assets/avatar.png  //头像
+github: https://github.com/num5  //github主页
+weibo: http://weibo.com/golune  //微博主页
+mail: 378999587@qq.com  //email 地址
+zhihu: https://www.zhihu.com/people/golune  //知乎主页
+ 
+# 监听信息
+paths:  // 监听文件夹
+  - markdown
+exts:  // 监听后缀名
+  - md
+  - yml
 
-theme = blog //网站模板
-markdown = markdown  //博客markdown文件存放文件夹
-html = /var/www/html  //博客html文件存放文件夹
-storage = storage  //数据存放文件夹，暂时未用到
-
-[author] //作者信息设置
-
-name = my name  //作者名称
-avatar = /assets/avatar.png  //头像
-github = https://github.com/num5  //github 地址
-weibo = http://weibo.com/golune  //微博地址
-mail = 378999587@qq.com  //email 地址
+# 上传信息
+upload_theme: theme/upload  // 上传模版地址
 
 ```
-初始化以后需要在conf.ini文件同目录下创建theme文件夹用于存放模板文件
+初始化以后需要在config.yml文件同目录下创建theme文件夹用于存放模板文件
 
 模板文件夹结构
 - blog  模版文件夹
@@ -110,7 +118,18 @@ readme.md和about.md不会被文章解析器解析
 
 #### chca run 8800
 
-> 打开内部服务器，监听端口8800，并开启文件监听器，监听文件夹和文件后缀名在config.yml里配置，
+> 打开内部服务器，监听端口8800，并开启文件监听器，监听文件夹和文件后缀名在config.yml里配置，配置示例：
+
+```yml
+// 监听文件夹
+paths:
+  - markdown
+ 
+// 监听后缀名
+exts:
+  - md  // 监听 markdown 文件（以.md为后缀的文件）
+```
+以上配置：监听器监听`markdown`文件夹下的以`.md`为后缀的文件，当文件夹下的`.md`文件新增或者发生改变时，chca则会自动编译博客
 
 # License
 
