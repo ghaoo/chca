@@ -1,7 +1,7 @@
 # CHCA
 一个使用golang开发的博客生成器
 
-### 安装
+## 安装
 ```bash
 go get -v github.com/num5/chca
 ```
@@ -10,7 +10,7 @@ go get -v github.com/num5/chca
 
 https://github.com/num5/chca/releases
 
-### 使用
+## 使用
 
 ```bash
 # chca command [args...]
@@ -31,7 +31,7 @@ https://github.com/num5/chca/releases
     chca run [port]
 ```
 
-#### chca init
+### chca init
 > chca init 用于初始化博客，会自动生成config.yml
 
 ```yml
@@ -86,7 +86,7 @@ upload_theme: theme/upload  // 上传模版地址
 - -- -- page.html    标签、导航和分类列表页面
 
 
-#### chca new filename
+### chca new filename
 
 > 新建markdown文件
 
@@ -108,11 +108,11 @@ tags:
 about.md文件是存放作者简历的文件，存放在markdown文件夹
 readme.md和about.md不会被文章解析器解析
 
-#### chca compile
+### chca compile
 
 > 生成html文件
 
-#### chca watch/w
+### chca watch/w
 
 > 开启文件监听器，监听文件夹和文件后缀名在config.yml里配置，配置示例：
   
@@ -127,11 +127,11 @@ readme.md和about.md不会被文章解析器解析
   ```
   以上配置：监听器监听`markdown`文件夹下的以`.md`为后缀的文件，当文件夹下的`.md`文件新增或者发生改变时，chca则会自动编译博客
 
-#### chca http 8800
+### chca http 8800
 
 > 打开内部服务器，监听端口8800
 
-#### chca run 8800
+### chca run 8800
 
 > 打开内部服务器，监听端口8800，并开启文件监听器
 
