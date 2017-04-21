@@ -21,8 +21,11 @@ https://github.com/num5/chca/releases
 # 新建 markdown 文件
     chca new filename
 
-#编译博客
-    chca compile
+# 编译博客
+    chca compile/c
+    
+# 打开文件监听器
+    chca watch/w
 
 # 打开文件服务器， 默认端口9900
     chca http [port]
