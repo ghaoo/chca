@@ -45,7 +45,8 @@ title: 我的网站
 subtitle: 网站标题
 description: mate-description
 keywords: mate-keywords
-summary_line: 10
+summary_line: 10 // 首页文章行数
+home_art_num: 30 // 首页文章数量
 
 # 文件夹相关
 theme: theme/blog //网站模板
@@ -66,7 +67,6 @@ paths:  // 监听文件夹
   - markdown
 exts:  // 监听后缀名
   - md
-  - yml
 
 # 上传信息
 upload_theme: theme/upload  // 上传模版地址
