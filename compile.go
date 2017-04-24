@@ -55,7 +55,7 @@ func CompileHome() {
 
 	data["artlist"] = GetHomeArt()
 	data["cate"] = GetCate()
-	data["tpl"] = Config().Theme + "/layout/index.html"
+	data["index"] = Config().Theme + "/layout/index.html"
 
 	err := utils.MkDir(Config().Html)
 
