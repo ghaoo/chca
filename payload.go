@@ -155,6 +155,15 @@ func GetAllArt() []*Article {
 	return contents
 }
 
+// 获取首页文章
+func GetHomeArt() []*Article {
+	num := Config().HomeArtNum
+	homeArt := make([]*Article, num)
+	copy(homeArt, contents)
+	return homeArt
+
+}
+
 // 获取about内容
 func GetAbout() (art *Article, err error) {
 	art = &Article{}
@@ -343,6 +352,7 @@ subtitle: 网站标题
 description: mate-description
 keywords: mate-keywords
 summary_line: 10
+home_art_num: 10
 
 # 文件夹相关
 theme: theme/blog

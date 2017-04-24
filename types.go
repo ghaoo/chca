@@ -63,6 +63,7 @@ type Website struct {
 	Description string `yaml:"description"`
 	Keywords    string `yaml:"keywords"`
 	SummaryLine int    `yaml:"summary_line"`
+	HomeArtNum int    `yaml:"home_art_num"`
 
 	Theme    string `yaml:"theme"`
 	Markdown string `yaml:"markdown"`

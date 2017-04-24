@@ -33,7 +33,7 @@ func Compile() {
 	log.Tracf("开始编译博客...")
 
 	checkFile()
-	copy()
+	subcopy()
 
 	LoadArticle()
 	// 创建页面
@@ -53,7 +53,7 @@ func CompileHome() {
 
 	data["title"] = "主页"
 
-	data["artlist"] = GetAllArt()
+	data["artlist"] = GetHomeArt()
 	data["cate"] = GetCate()
 	data["tpl"] = Config().Theme + "/layout/index.html"
 
@@ -341,7 +341,7 @@ tags:
 	return src
 }
 
-func copy() {
+func subcopy() {
 
 	// copy 配置文件
 	/*_, err := utils.CopyFile("conf.ini", path.Join(Config().Html, "conf.ini"))
