@@ -53,11 +53,11 @@ var (
 )
 
 func main() {
-	/*defer func() {
+	defer func() {
 		if err := recover(); err != nil {
 			log.Fatalf("panic 错误: %s\n", err)
 		}
-	}()*/
+	}()
 
 	flag.Parse()
 	args = flag.Args()

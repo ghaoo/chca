@@ -24,11 +24,11 @@ var data = map[string]interface{}{
 
 func Compile() {
 
-	/*defer func() {
+	defer func() {
 		if err := recover(); err != nil {
 			log.Fatalf("panic 错误: %s\n", err)
 		}
-	}()*/
+	}()
 
 	log.Tracf("开始编译博客...")
 
