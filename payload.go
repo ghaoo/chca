@@ -158,8 +158,16 @@ func GetAllArt() []*Article {
 // 获取首页文章
 func GetHomeArt() []*Article {
 	num := Config().HomeArtNum
+	if num == 0 || len(contents) <= num {
+		num = len(contents)
+	}
+
 	homeArt := make([]*Article, num)
 	copy(homeArt, contents)
+
+	for k, v := range homeArt {
+		fmt.Printf("%d:%s\n",k, v.Title)
+	}
 	return homeArt
 
 }

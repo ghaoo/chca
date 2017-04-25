@@ -53,11 +53,11 @@ var (
 )
 
 func main() {
-	defer func() {
+	/*defer func() {
 		if err := recover(); err != nil {
 			log.Fatalf("panic 错误: %s\n", err)
 		}
-	}()
+	}()*/
 
 	flag.Parse()
 	args = flag.Args()
@@ -150,8 +150,8 @@ func init() {
 	// 设置log级别
 	log.SetLevel("Debug")
 	// 设置输出引擎
-	log.SetEngine("file", `{"level":5, "spilt":"size", "filename":".logs/wechat.log", "maxsize":15}`)
+	log.SetEngine("file", `{"level":5, "spilt":"size", "filename":".logs/chca.log", "maxsize":15}`)
 	//log.DelEngine("console")
 	// 设置是否输出行号
-	//log.SetFuncCall(true)
+	log.SetFuncCall(true)
 }

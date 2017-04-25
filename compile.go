@@ -24,11 +24,11 @@ var data = map[string]interface{}{
 
 func Compile() {
 
-	defer func() {
+	/*defer func() {
 		if err := recover(); err != nil {
 			log.Fatalf("panic 错误: %s\n", err)
 		}
-	}()
+	}()*/
 
 	log.Tracf("开始编译博客...")
 
@@ -55,7 +55,7 @@ func CompileHome() {
 
 	data["artlist"] = GetHomeArt()
 	data["cate"] = GetCate()
-	data["index"] = Config().Theme + "/layout/index.html"
+	data["tpl"] = Config().Theme + "/layout/index.html"
 
 	err := utils.MkDir(Config().Html)
 
