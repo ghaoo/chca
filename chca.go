@@ -7,11 +7,11 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/num5/loger"
+	"github.com/num5/logger"
 )
 
 var (
-	log *loger.Log
+	log *logger.Log
 	confile = "config.yml"
 )
 
@@ -146,7 +146,7 @@ func _http(port int) {
 func init() {
 
 	// 初始化Log
-	log = loger.NewLog(1000)
+	log = logger.NewLog(1000)
 	// 设置log级别
 	log.SetLevel("Debug")
 	// 设置输出引擎
