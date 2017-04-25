@@ -27,5 +27,5 @@ e=>end
 
 st->op1->cond1
 cond1(yes)->e
-cond1(no)->sub(right)->op1  
+cond1(no)->sub(right)->op1
 ```
