@@ -152,6 +152,7 @@ func init() {
 	// 设置输出引擎
 	log.SetEngine("file", `{"level":5, "spilt":"size", "filename":".logs/chca.log", "maxsize":15}`)
 	//log.DelEngine("console")
+
 	// 设置是否输出行号
 	//log.SetFuncCall(true)
 }
