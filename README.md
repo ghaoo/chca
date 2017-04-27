@@ -96,6 +96,8 @@ article_title: 文章标题标头
 - -- -- tag.html 标签导航页
 - -- -- page.html    标签、导航和分类列表页面
 
+> 模板语法参照：[template](template.md)
+
 
 ### chca new filename
 
