@@ -92,7 +92,7 @@ func CompileArticle() {
 	pfix := ""
 
 	if len(strings.TrimSpace(title)) > 0 {
-		pfix = title
+		pfix = title + "-"
 	}
 
 	data["cate"] = GetCate()
@@ -101,7 +101,7 @@ func CompileArticle() {
 	for _, art := range artlist {
 		data["tpl"] = Config().Theme + "/layout/post.html"
 
-		data["title"] = pfix + "-" + art.Title
+		data["title"] = pfix + art.Title
 		data["description"] = strings.TrimSpace(art.Summary)
 		data["keywords"] = strings.Join(art.Tags, ",")
 
