@@ -55,7 +55,7 @@ var (
 func main() {
 	defer func() {
 		if err := recover(); err != nil {
-			log.Fatalf("panic 错误: %s\n", err)
+			log.Fatalf("panic 错误: %s", err)
 		}
 	}()
 
@@ -154,5 +154,5 @@ func init() {
 	//log.DelEngine("console")
 
 	// 设置是否输出行号
-	//log.SetFuncCall(true)
+	log.SetFuncCall(true)
 }

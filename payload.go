@@ -41,16 +41,25 @@ func LoadArticle() {
 			contents = append(contents, art)
 
 			for _, _cate := range art.Category {
+				if len(_cate) <= 0 {
+					continue
+				}
+
 				cate := cates[_cate]
 				if cate == nil {
 					cate = &Category{0, _cate, make([]*Article, 0), "/category/" + _cate}
 					cates[_cate] = cate
 				}
+
 				cate.Count += 1
 				cate.Posts = append(cate.Posts, art)
 			}
 
 			for _, _tag := range art.Tags {
+				if len(_tag) <= 0 {
+					continue
+				}
+
 				tag := tags[_tag]
 				if tag == nil {
 					tag = &Tag{0, _tag, make([]*Article, 0), "/tag/" + _tag}
@@ -165,9 +174,6 @@ func GetHomeArt() []*Article {
 	homeArt := make([]*Article, num)
 	copy(homeArt, contents)
 
-	for k, v := range homeArt {
-		fmt.Printf("%d:%s\n",k, v.Title)
-	}
 	return homeArt
 
 }

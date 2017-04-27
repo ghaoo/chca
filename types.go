@@ -80,7 +80,14 @@ type Website struct {
 	Paths []string `yaml:"paths"`
 	Exts  []string `yaml:"exts"`
 
-	UploadTheme string `yaml:"upload_theme"`
+	UploadTheme string `yaml:"upload_theme,omitempty"`
+
+	HomeTitle string `yaml:"home_title,omitempty"`
+	ArchiveTitle string `yaml:"archive_title,omitempty"`
+	TagTitle string `yaml:"tag_title,omitempty"`
+	CateTitle string `yaml:"cate_title,omitempty"`
+	AboutTitle string `yaml:"about_title,omitempty"`
+	ArticleTitle string `yaml:"article_title,omitempty"`
 }
 
 type CollatedYears []*CollatedYear

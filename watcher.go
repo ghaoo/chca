@@ -81,7 +81,7 @@ func (w *Watch) Watcher() {
 			os.Exit(2)
 		}
 	}
-	log.Debug("初始化监控成功... ... ")
+	log.Debug("初始化监控成功... ...")
 }
 
 func (w *Watch) checkIfWatchExt(name string) bool {

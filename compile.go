@@ -45,16 +45,23 @@ func Compile() {
 	CompileCategory()
 	CompileTag()
 	CompileAbout()
-	log.Debug("编译完成...\n")
+	log.Debug("编译完成...")
 }
 
 // 编译主页
 func CompileHome() {
 
-	data["title"] = "主页"
+	title := Config().HomeTitle
+
+	if len(strings.TrimSpace(title)) == 0 {
+		data["title"] = "主页"
+	} else {
+		data["title"] = title
+	}
 
 	data["artlist"] = GetHomeArt()
 	data["cate"] = GetCate()
+	data["tags"] = GetTag()
 	data["tpl"] = Config().Theme + "/layout/index.html"
 
 	err := utils.MkDir(Config().Html)
@@ -80,15 +87,25 @@ func CompileHome() {
 func CompileArticle() {
 	artlist := GetAllArt()
 
+	title := Config().ArticleTitle
+
+	pfix := ""
+
+	if len(strings.TrimSpace(title)) > 0 {
+		pfix = title
+	}
+
+	data["cate"] = GetCate()
+	data["tags"] = GetTag()
+
 	for _, art := range artlist {
 		data["tpl"] = Config().Theme + "/layout/post.html"
 
-		data["title"] = art.Title
-		data["description"] = art.Summary
+		data["title"] = pfix + "-" + art.Title
+		data["description"] = strings.TrimSpace(art.Summary)
 		data["keywords"] = strings.Join(art.Tags, ",")
 
 		data["article"] = art
-		data["cate"] = GetCate()
 
 		url := CreatePostLink(art)
 		filepath := path.Join(Config().Html, url)
@@ -121,12 +138,19 @@ func CompileAbout() {
 		panic(err)
 	}
 
-	data["title"] = "我的简历"
+	title := Config().AboutTitle
+
+	if len(strings.TrimSpace(title)) == 0 {
+		data["title"] = "我的简历"
+	} else {
+		data["title"] = title
+	}
 
 	data["tpl"] = Config().Theme + "/layout/post.html"
 
 	data["article"] = about
 	data["cate"] = GetCate()
+	data["tags"] = GetTag()
 
 	filepath := path.Join(Config().Html, "about.html")
 
@@ -145,9 +169,17 @@ func CompileAbout() {
 // 编译归档页
 func CompileArchive() {
 
-	data["title"] = "文章归档"
+	title := Config().ArchiveTitle
+
+	if len(strings.TrimSpace(title)) == 0 {
+		data["title"] = "文章归档"
+	} else {
+		data["title"] = title
+	}
+
 	data["archive"] = GetArchive()
 	data["cate"] = GetCate()
+	data["tags"] = GetTag()
 	data["tpl"] = Config().Theme + "/layout/archive.html"
 
 	filepath := path.Join(Config().Html, "archive")
@@ -175,8 +207,16 @@ func CompileArchive() {
 // 编译cate导航页
 func CompileCatePage() {
 
-	data["title"] = "文章分类"
+	title := Config().CateTitle
+
+	if len(strings.TrimSpace(title)) == 0 {
+		data["title"] = "文章分类"
+	} else {
+		data["title"] = title
+	}
+
 	data["cate"] = GetCate()
+	data["tags"] = GetTag()
 	data["tpl"] = Config().Theme + "/layout/category.html"
 
 	filepath := path.Join(Config().Html, "category")
@@ -206,6 +246,7 @@ func CompileCategory() {
 
 	cates := GetCate()
 	data["cate"] = cates
+	data["tags"] = GetTag()
 
 	for _, cate := range cates {
 
@@ -242,7 +283,14 @@ func CompileCategory() {
 // 编译tag导航页
 func CompileTagPage() {
 
-	data["title"] = "文章标签"
+	title := Config().TagTitle
+
+	if len(strings.TrimSpace(title)) == 0 {
+		data["title"] = "文章标签"
+	} else {
+		data["title"] = title
+	}
+
 	data["cate"] = GetCate()
 	data["tags"] = GetTag()
 	data["tpl"] = Config().Theme + "/layout/tag.html"
@@ -274,6 +322,7 @@ func CompileTag() {
 
 	tags := GetTag()
 	data["cate"] = GetCate()
+	data["tags"] = GetTag()
 
 	for _, tag := range tags {
 

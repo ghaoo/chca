@@ -71,6 +71,14 @@ exts:  // 监听后缀名
 # 上传信息
 upload_theme: theme/upload  // 上传模版地址
 
+# 自定义标题，可不配置，使用chca设置好的标题
+home_title: 主页标题
+archive_title: 文章归档标题
+tag_title: 标签导航页面标题
+cate_title: 分类导航页面标题
+about_title: 简历页面标题
+article_title: 文章标题标头
+
 ```
 初始化以后需要在config.yml文件同目录下创建theme文件夹用于存放模板文件
 
