@@ -98,14 +98,14 @@ func (w *Watch) getFileModTime(path string) int64 {
 	f, err := os.Open(path)
 	if err != nil {
 
-		log.Errorf(" 文件打开失败 [ %s ]", err)
+		log.Errorf("文件打开失败 [ %s ]", err)
 		return time.Now().Unix()
 	}
 	defer f.Close()
 
 	fi, err := f.Stat()
 	if err != nil {
-		log.Errorf(" 获取不到文件信息 [ %s ]", err)
+		log.Errorf("获取不到文件信息 [ %s ]", err)
 		return time.Now().Unix()
 	}
 
