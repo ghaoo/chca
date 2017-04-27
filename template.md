@@ -249,4 +249,4 @@ artlist是存放文章的字典，需要遍历显示：
 
 ## 参照模板
 
-[theme](theme)
+[theme](theme/blog)
