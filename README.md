@@ -91,10 +91,10 @@ article_title: 文章标题标头
 - -- -- main.html  公共布局
 - -- -- index.html  主页
 - -- -- post.html   文章页
-- -- -- archive.html 导航导航页
+- -- -- archive.html 归档导航页
 - -- -- category.html 分类导航页
 - -- -- tag.html 标签导航页
-- -- -- page.html    标签、导航和分类列表页面
+- -- -- page.html 标签和分类列表页面
 
 > 模板语法参照：[template](template.md)
 
