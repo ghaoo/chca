@@ -26,8 +26,9 @@ var chcaStr = `
 *                                          *
 *             Simple and fast              *
 ============================================
-`
 
+
+`
 
 const (
 	HELP = `
@@ -135,6 +136,7 @@ func main() {
 func new() {
 	createConf()
 	createDir()
+	log.Debug("初始化成功！")
 }
 
 func _http(port int) {
