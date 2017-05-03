@@ -8,12 +8,25 @@ import (
 	"strconv"
 
 	"github.com/num5/logger"
+	"chca/utils"
 )
 
 var (
 	log *logger.Log
 	confile = "config.yml"
 )
+
+var chcaStr = `
+============================================
+*   _______________  __________________	   *
+*   __  ____/___  / / /__  ____/___    |   *
+*   _  /     __  /_/ / _  /     __  /| |   *
+*   / /___   _  __  /  / /___   _  ___ |   *
+*   \____/   /_/ /_/   \____/   /_/  |_|   *
+*                                          *
+*             Simple and fast              *
+============================================
+`
 
 
 const (
@@ -53,6 +66,9 @@ var (
 )
 
 func main() {
+
+	utils.Green(chcaStr)
+
 	defer func() {
 		if err := recover(); err != nil {
 			log.Fatalf("panic 错误: %s", err)
