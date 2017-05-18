@@ -121,8 +121,8 @@ tags:
 ```
 建议使用chca创建markdown文件
 
-about.md文件是存放作者简历的文件，存放在markdown文件夹
-readme.md和about.md不会被文章解析器解析
+`about.md`文件是存放作者简历的文件，存放在markdown文件夹
+另外`readme.md`和`about.md`不会被文章解析器解析
 
 ### chca compile
 
