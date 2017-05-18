@@ -2,8 +2,6 @@
 
 chca是一个使用golang开发的静态博客生成器，简单、方便、快捷，抛弃每次都需要使用命令编译文件，采用文件监听方式编译，博客作者只需把markdown文件放到配置中的markdown文件夹下就能自动生成html了。
 
-如果你是个
-
 ## 安装
 ```bash
 go get -v github.com/num5/chca
