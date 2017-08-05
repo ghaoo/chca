@@ -45,11 +45,21 @@ func Compile() {
 	CompileCategory()
 	CompileTag()
 	CompileAbout()
+	storageBlogMap()
 	log.Debug("编译完成...")
 }
 
 func storageBlogMap() {
-	//stor := utils.New
+	stor, err := utils.NewStor(Config().Storage, "blogmap.json")
+	if err != nil {
+		panic(err)
+	}
+	
+	err = stor.Store(GetAllArt())
+	if err != nil {
+		panic(err)
+	}
+	
 }
 
 // 编译主页
