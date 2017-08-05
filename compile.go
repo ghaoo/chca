@@ -48,6 +48,10 @@ func Compile() {
 	log.Debug("编译完成...")
 }
 
+func storageBlogMap() {
+	//stor := utils.New
+}
+
 // 编译主页
 func CompileHome() {
 
@@ -410,3 +414,4 @@ func checkFile() {
 		panic("需要先初始化并添加模板文件")
 	}
 }
+
