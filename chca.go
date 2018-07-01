@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/num5/logger"
+	"github.com/guhao022/logger"
 	"github.com/ghaoo/chca/utils"
 )
 
