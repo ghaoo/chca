@@ -107,7 +107,7 @@ func main() {
 	case "run":
 		Compile()
 		NewWatch(Config().Paths, Config().Exts).Watcher()
-		var port int = 9900
+		var port = 9900
 		if len(args) == 2 {
 			p, err := strconv.Atoi(args[1])
 			if err != nil {
@@ -119,7 +119,7 @@ func main() {
 		_http(port)
 
 	case "http", "web":
-		var port int = 9900
+		var port = 9900
 		if len(args) == 2 {
 			p, err := strconv.Atoi(args[1])
 			if err != nil {
