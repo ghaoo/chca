@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 	
-	"github.com/num5/chca/template"
-	"github.com/num5/chca/utils"
+	"github.com/ghaoo/chca/template"
+	"github.com/ghaoo/chca/utils"
 )
 
 var data = map[string]interface{}{

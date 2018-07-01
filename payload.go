@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/num5/chca/utils"
+	"github.com/ghaoo/chca/utils"
 	"github.com/go-yaml/yaml"
 )
 

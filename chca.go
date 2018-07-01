@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	"github.com/num5/logger"
-	"github.com/num5/chca/utils"
+	"github.com/ghaoo/chca/utils"
 )
 
 var (
@@ -89,7 +89,7 @@ func main() {
 		PrintUsage()
 		os.Exit(1)
 	case "init":
-		new()
+		_new()
 	case "new":
 		if len(args) == 2 {
 			name := args[1]
@@ -133,7 +133,7 @@ func main() {
 	}
 }
 
-func new() {
+func _new() {
 	createConf()
 	createDir()
 	log.Debug("初始化成功！")
