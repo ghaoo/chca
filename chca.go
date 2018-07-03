@@ -1,4 +1,4 @@
-package main
+package chca
 
 import (
 	"flag"
@@ -7,12 +7,15 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/guhao022/logger"
 	"github.com/ghaoo/chca/utils"
+
+	"github.com/sirupsen/logrus"
 )
 
 var (
-	log *logger.Log
+	log = logrus.WithFields(logrus.Fields{
+		`M`: `chca`,
+	})
 	confile = "config.yml"
 )
 
