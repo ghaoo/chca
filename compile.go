@@ -30,7 +30,7 @@ func Compile() {
 		}
 	}()
 
-	log.Tracf("开始编译博客...")
+	log.Info("开始编译博客...")
 
 	checkFile()
 	subcopy()

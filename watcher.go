@@ -24,7 +24,7 @@ func NewWatch(paths []string, exts []string) *Watch {
 
 func (w *Watch) Watcher() {
 	//初始化监听器
-	log.Tracf("初始化监听器... ... ")
+	log.Info("初始化监听器... ... ")
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		panic("初始化监听器失败" + err.Error())
@@ -61,7 +61,7 @@ func (w *Watch) Watcher() {
 							}
 							return
 						}
-						log.Tracf("触发编译事件: %s ", event)
+						log.Info("触发编译事件: %s ", event)
 
 						go Compile()
 					}()
@@ -74,7 +74,7 @@ func (w *Watch) Watcher() {
 	}()
 
 	for _, path := range w.Paths {
-		log.Tracf("监听文件夹: [%s] ", path)
+		log.Info("监听文件夹: [%s] ", path)
 		err = watcher.Add(path)
 		if err != nil {
 			log.Errorf("监视文件夹失败: [ %s ] ", err)
