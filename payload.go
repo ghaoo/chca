@@ -241,7 +241,7 @@ func makeSummary(content string, lines int) (string, error) {
 			break
 		}
 
-		if strings.Contains(line, "[toc]") {
+		if strings.Contains(strings.ToLower(line), "[toc]") {
 			continue
 		}
 
@@ -269,7 +269,7 @@ func summary(content string, n int) string {
 	var sumSlice []string
 
 	for i, str := range strSlice {
-		if strings.Contains(str, "[toc]") {
+		if strings.Contains(strings.ToLower(str), "[toc]") {
 			continue
 		}
 

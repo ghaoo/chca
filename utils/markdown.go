@@ -9,11 +9,6 @@ import (
 
 // 封装Markdown转换为Html的逻辑
 
-const (
-	//http://maruku.rubyforge.org/maruku.html#toc-generation
-	TOC_MARKUP = "[toc]"
-)
-
 var (
 	TOC_TITLE = "<h4>文章导航:</h4>"
 )
@@ -31,7 +26,8 @@ func MarkdownToHtml(content string) (str string) {
 
 	htmlFlags := 0
 
-	if strings.Contains(content, TOC_MARKUP) {
+	if strings.Contains(strings.ToLower(content), "[toc]") {
+
 		htmlFlags |= HTML_TOC
 	}
 
@@ -60,7 +56,8 @@ func MarkdownToHtml(content string) (str string) {
 			toc := str[found[0]:found[1]]
 			toc = TOC_TITLE + toc
 			str = str[found[1]:]
-			str = strings.Replace(str, TOC_MARKUP, toc, -1)
+			reg := regexp.MustCompile(`\[toc\]|\[TOC\]`)
+			str = reg.ReplaceAllString(str, toc)
 		}
 	}
 	return str

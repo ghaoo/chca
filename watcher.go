@@ -61,7 +61,7 @@ func (w *Watch) Watcher() {
 							}
 							return
 						}
-						log.Info("触发编译事件: %s ", event)
+						log.Infof("触发编译事件: %s ", event)
 
 						go Compile()
 					}()
@@ -74,7 +74,7 @@ func (w *Watch) Watcher() {
 	}()
 
 	for _, path := range w.Paths {
-		log.Info("监听文件夹: [%s] ", path)
+		log.Infof("监听文件夹: [%s] ", path)
 		err = watcher.Add(path)
 		if err != nil {
 			log.Errorf("监视文件夹失败: [ %s ] ", err)
