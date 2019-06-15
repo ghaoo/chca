@@ -63,7 +63,7 @@ func (w *Watch) Watcher() {
 						}
 						log.Infof("触发编译事件: %s ", event)
 
-						go Compile()
+						Compile()
 					}()
 				}
 

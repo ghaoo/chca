@@ -24,6 +24,12 @@ var data = map[string]interface{}{
 
 func Compile() {
 
+	defer func() {
+		if r := recover(); r != nil {
+			log.Errorf("panic recovered from: %v", r)
+		}
+	}()
+
 	log.Info("开始编译博客...")
 
 	checkFile()

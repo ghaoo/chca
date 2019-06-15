@@ -94,9 +94,8 @@ func CopyDir(source string, dest string) (err error) {
 	}
 
 	// ensure dest dir does not already exist
-
 	_, err = os.Open(dest)
-	if !os.IsNotExist(err) {
+	if os.IsExist(err) {
 
 		err = os.RemoveAll(dest)
 		if err != nil {
