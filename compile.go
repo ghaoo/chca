@@ -34,7 +34,6 @@ func Compile() {
 
 	checkFile()
 	subcopy()
-
 	LoadArticle()
 	// 创建页面
 	CompileHome()
@@ -341,9 +340,13 @@ func CompileTag() {
 	for _, tag := range tags {
 
 		data["title"] = "标签-" + tag.Name
+
 		data["ptitle"] = tag.Name
+
 		data["content"] = tag.Posts
+
 		data["count"] = tag.Count
+
 		data["tpl"] = Config().Theme + "/layout/page.html"
 
 		filepath := path.Join(Config().Html, "tag", tag.Name)
