@@ -2,14 +2,14 @@ package chca
 
 import (
 	"encoding/json"
+	"fmt"
+	"html/template"
+	"io"
 	"net/http"
 	"os"
-	"io"
-	"fmt"
-	"time"
 	"path/filepath"
 	"strings"
-	"html/template"
+	"time"
 )
 
 type FileHandler struct {
@@ -68,9 +68,9 @@ func (fh *FileHandler) upload(w http.ResponseWriter, r *http.Request) {
 		file, handler, err := r.FormFile("file")
 		if err != nil {
 			log.Errorf("未找到上传文件：%s", err)
-			resp := map[string]interface{} {
-				"code": 500,
-				"error": "未找到上传文件:"+err.Error(),
+			resp := map[string]interface{}{
+				"code":  500,
+				"error": "未找到上传文件:" + err.Error(),
 			}
 			out, _ := json.Marshal(resp)
 			w.Write(out)
@@ -87,9 +87,9 @@ func (fh *FileHandler) upload(w http.ResponseWriter, r *http.Request) {
 		} else {
 			if Exist(save) {
 				log.Warnf("博客《%s》文件已经存在", filename)
-				resp := map[string]interface{} {
-					"code": 500,
-					"error": "博客《"+filename+"》文件已经存在",
+				resp := map[string]interface{}{
+					"code":  500,
+					"error": "博客《" + filename + "》文件已经存在",
 				}
 				out, _ := json.Marshal(resp)
 				w.Write(out)
@@ -101,9 +101,9 @@ func (fh *FileHandler) upload(w http.ResponseWriter, r *http.Request) {
 		of, err := handler.Open()
 		if err != nil {
 			log.Errorf("文件处理错误： %s", err)
-			resp := map[string]interface{} {
-				"code": 500,
-				"error": "文件处理错误:"+err.Error(),
+			resp := map[string]interface{}{
+				"code":  500,
+				"error": "文件处理错误:" + err.Error(),
 			}
 			out, _ := json.Marshal(resp)
 			w.Write(out)
@@ -115,9 +115,9 @@ func (fh *FileHandler) upload(w http.ResponseWriter, r *http.Request) {
 		f, err := os.Create(save)
 		if err != nil {
 			log.Errorf("创建文件失败： %s", err)
-			resp := map[string]interface{} {
-				"code": 500,
-				"error": "创建文件失败:"+err.Error(),
+			resp := map[string]interface{}{
+				"code":  500,
+				"error": "创建文件失败:" + err.Error(),
 			}
 			out, _ := json.Marshal(resp)
 			w.Write(out)
@@ -133,9 +133,9 @@ func (fh *FileHandler) upload(w http.ResponseWriter, r *http.Request) {
 		print := fmt.Sprintf("上传时间:%s, Size: %dKB,  Name:%s\n", time.Now().Format("2006-01-02 15:04:05"), fstat.Size()/1024, filename)
 		log.Infof(print)
 
-		resp := map[string]interface{} {
+		resp := map[string]interface{}{
 			"code": 0,
-			"msg": print,
+			"msg":  print,
 		}
 		out, _ := json.Marshal(resp)
 		w.Write(out)
@@ -148,7 +148,7 @@ func (fh *FileHandler) filewolk(w http.ResponseWriter, r *http.Request) {
 	dir := fh.savePath
 	var filemaps []string
 	err := filepath.Walk(dir, func(path string, f os.FileInfo, err error) error {
-		if ( f == nil ) {
+		if f == nil {
 			return err
 		}
 		if f.IsDir() {
@@ -177,17 +177,17 @@ func (fh *FileHandler) delete(w http.ResponseWriter, r *http.Request) {
 
 	err := os.Remove(file)
 	if err != nil {
-		resp := map[string]interface{} {
-			"code": 500,
-			"error": "删除文件失败:"+err.Error(),
+		resp := map[string]interface{}{
+			"code":  500,
+			"error": "删除文件失败:" + err.Error(),
 		}
 		out, _ := json.Marshal(resp)
 		w.Write(out)
 		return
 	}
 
-	resp := map[string]interface{} {
-		"code": 0,
+	resp := map[string]interface{}{
+		"code":  0,
 		"error": "删除《" + filename + "》文件成功",
 	}
 	out, _ := json.Marshal(resp)

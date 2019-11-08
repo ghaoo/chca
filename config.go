@@ -1,9 +1,9 @@
 package chca
 
 import (
-	"os"
-	"io/ioutil"
 	"github.com/go-yaml/yaml"
+	"io/ioutil"
+	"os"
 )
 
 func load() ([]byte, error) {
@@ -25,13 +25,13 @@ func load() ([]byte, error) {
 func Config() Website {
 	data, err := load()
 	if err != nil {
-		panic("加载配置文件失败"+ err.Error())
+		panic("加载配置文件失败" + err.Error())
 	}
 
 	w := Website{}
 	err = yaml.Unmarshal(data, &w)
 	if err != nil {
-		panic("解析配置文件失败"+err.Error())
+		panic("解析配置文件失败" + err.Error())
 	}
 
 	return w

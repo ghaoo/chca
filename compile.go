@@ -5,7 +5,7 @@ import (
 	"path"
 	"strings"
 	"time"
-	
+
 	"github.com/ghaoo/chca/template"
 	"github.com/ghaoo/chca/utils"
 )
@@ -53,12 +53,12 @@ func storageBlogMap() {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	err = stor.Store(GetAllArt())
 	if err != nil {
 		panic(err)
 	}
-	
+
 }
 
 // 编译主页
@@ -427,4 +427,3 @@ func checkFile() {
 		panic("需要先初始化并添加模板文件")
 	}
 }
-

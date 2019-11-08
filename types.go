@@ -63,7 +63,7 @@ type Website struct {
 	Description string `yaml:"description"`
 	Keywords    string `yaml:"keywords"`
 	SummaryLine int    `yaml:"summary_line"`
-	HomeArtNum int    `yaml:"home_art_num"`
+	HomeArtNum  int    `yaml:"home_art_num"`
 
 	Theme    string `yaml:"theme"`
 	Markdown string `yaml:"markdown"`
@@ -82,11 +82,11 @@ type Website struct {
 
 	UploadTheme string `yaml:"upload_theme,omitempty"`
 
-	HomeTitle string `yaml:"home_title,omitempty"`
+	HomeTitle    string `yaml:"home_title,omitempty"`
 	ArchiveTitle string `yaml:"archive_title,omitempty"`
-	TagTitle string `yaml:"tag_title,omitempty"`
-	CateTitle string `yaml:"cate_title,omitempty"`
-	AboutTitle string `yaml:"about_title,omitempty"`
+	TagTitle     string `yaml:"tag_title,omitempty"`
+	CateTitle    string `yaml:"cate_title,omitempty"`
+	AboutTitle   string `yaml:"about_title,omitempty"`
 	ArticleTitle string `yaml:"article_title,omitempty"`
 }
 

@@ -9,14 +9,14 @@ import (
 )
 
 func NewStor(storpath, filename string) (*Storage, error) {
-	
+
 	// 检测文件夹是否存在   若不存在  创建文件夹
 	if _, err := os.Stat(storpath); err != nil {
-		
+
 		if os.IsNotExist(err) {
-			
+
 			err = os.MkdirAll(storpath, os.ModePerm)
-			
+
 			if err != nil {
 				return nil, err
 			}
@@ -24,7 +24,7 @@ func NewStor(storpath, filename string) (*Storage, error) {
 			return nil, err
 		}
 	}
-	
+
 	return &Storage{storpath: storpath, name: filename}, nil
 }
 
@@ -69,17 +69,17 @@ func getFile(storpath string) (*os.File, error) {
 func storread(storpath string, value interface{}) error {
 	f, err := os.OpenFile(storpath, os.O_RDWR, 0666)
 	defer f.Close()
-	
+
 	if err != nil {
 		return err
 	}
-	
+
 	return json.NewDecoder(bufio.NewReader(f)).Decode(&value)
 }
 
 func storwrite(storpath string, value interface{}) error {
 	content, err := json.Marshal(value)
-	
+
 	if err != nil {
 		return err
 	}

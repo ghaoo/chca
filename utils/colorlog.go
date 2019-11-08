@@ -45,4 +45,3 @@ func Green(format string, a ...interface{}) {
 func Yellow(format string, a ...interface{}) string {
 	return fmt.Sprintf("\033[%dm%s\033[0m", yellow, fmt.Sprintf(format, a...))
 }
-
