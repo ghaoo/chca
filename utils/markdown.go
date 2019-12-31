@@ -1,7 +1,7 @@
 package utils
 
 import (
-	. "github.com/russross/blackfriday"
+	md "github.com/russross/blackfriday"
 	"log"
 	"regexp"
 	"strings"
@@ -28,29 +28,29 @@ func MarkdownToHtml(content string) (str string) {
 
 	if strings.Contains(strings.ToLower(content), "[toc]") {
 
-		htmlFlags |= HTML_TOC
+		htmlFlags |= md.HTML_TOC
 	}
 
-	htmlFlags |= HTML_USE_XHTML
-	htmlFlags |= HTML_USE_SMARTYPANTS
-	htmlFlags |= HTML_SMARTYPANTS_FRACTIONS
-	htmlFlags |= HTML_SMARTYPANTS_LATEX_DASHES
-	renderer := HtmlRenderer(htmlFlags, "", "")
+	htmlFlags |= md.HTML_USE_XHTML
+	htmlFlags |= md.HTML_USE_SMARTYPANTS
+	htmlFlags |= md.HTML_SMARTYPANTS_FRACTIONS
+	htmlFlags |= md.HTML_SMARTYPANTS_LATEX_DASHES
+	renderer := md.HtmlRenderer(htmlFlags, "", "")
 
 	// set up the parser
 	extensions := 0
-	extensions |= EXTENSION_NO_INTRA_EMPHASIS
-	extensions |= EXTENSION_TABLES
-	extensions |= EXTENSION_FENCED_CODE
-	extensions |= EXTENSION_AUTOLINK
-	extensions |= EXTENSION_STRIKETHROUGH
-	extensions |= EXTENSION_SPACE_HEADERS
-	extensions |= EXTENSION_HARD_LINE_BREAK
-	extensions |= EXTENSION_FOOTNOTES
+	extensions |= md.EXTENSION_NO_INTRA_EMPHASIS
+	extensions |= md.EXTENSION_TABLES
+	extensions |= md.EXTENSION_FENCED_CODE
+	extensions |= md.EXTENSION_AUTOLINK
+	extensions |= md.EXTENSION_STRIKETHROUGH
+	extensions |= md.EXTENSION_SPACE_HEADERS
+	extensions |= md.EXTENSION_HARD_LINE_BREAK
+	extensions |= md.EXTENSION_FOOTNOTES
 
-	str = string(Markdown([]byte(content), renderer, extensions))
+	str = string(md.Markdown([]byte(content), renderer, extensions))
 
-	if htmlFlags&HTML_TOC != 0 {
+	if htmlFlags&md.HTML_TOC != 0 {
 		found := navRegex.FindIndex([]byte(str))
 		if len(found) > 0 {
 			toc := str[found[0]:found[1]]

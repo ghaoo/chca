@@ -397,7 +397,7 @@ upload_theme: theme/upload
 func createConf() {
 	_, err := os.Stat(confile)
 	if os.IsNotExist(err) {
-		_, err := os.OpenFile(confile, os.O_WRONLY|os.O_CREATE, 0666)
+		_, err := os.OpenFile(confile, os.O_WRONLY|os.O_CREATE, 0755)
 		if err != nil {
 			panic(err)
 		}
