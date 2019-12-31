@@ -20,8 +20,6 @@ var chcaStr = `
 *                                          *
 *             Simple and fast              *
 ============================================
-
-
 `
 
 const (
@@ -62,7 +60,7 @@ var (
 
 func main() {
 
-	color.Green(chcaStr)
+	color.New(color.FgGreen).Fprintln(os.Stdout, chcaStr)
 
 	flag.Parse()
 	args = flag.Args()

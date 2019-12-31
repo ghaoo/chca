@@ -4,7 +4,7 @@ chca是一个使用golang开发的静态博客生成器，简单、方便、快�
 
 ## 安装
 ```bash
-go get -v github.com/ghaoo/chca
+go get -v github.com/ghaoo/chca/chca
 ```
 
 ## 使用
