@@ -4,12 +4,8 @@ chca是一个使用golang开发的静态博客生成器，简单、方便、快�
 
 ## 安装
 ```bash
-go get -v github.com/num5/chca
+go get -v github.com/ghaoo/chca
 ```
-
-或者下载安装
-
-https://github.com/num5/chca/releases
 
 ## 使用
 
@@ -58,7 +54,7 @@ storage: storage //数据存放文件夹，暂时未用到
 # 作者信息
 author: your name
 avatar: /assets/avatar.png  //头像连接，一般放到assets或者avatar文件夹里
-github: https://github.com/num5  //github主页
+github: https://github.com/ghaoo  //github主页
 weibo: http://weibo.com/golune  //微博主页
 mail: 378999587@qq.com  //email 地址
 zhihu: https://www.zhihu.com/people/golune  //知乎主页

@@ -377,7 +377,7 @@ storage: storage
 # 作者信息
 author: your name
 avatar: /assets/avatar.png
-github: https://github.com/num5
+github: https://github.com/ghaoo
 weibo: http://weibo.com/golune
 mail: 378999587@qq.com
 zhihu: https://www.zhihu.com/people/golune
