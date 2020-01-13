@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	//"github.com/ghaoo/chca/template"
 	"github.com/ghaoo/chca/utils"
 )
 
