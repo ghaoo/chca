@@ -12,9 +12,7 @@ type textTemp struct {
 	*template.Template
 }
 
-/**
-newText 新建基于 "text/template" 的共享模板.
-*/
+// newText 新建基于 "text/template" 的共享模板.
 func newText() executor {
 	return textTemp{
 		Template: template.New(shareName),

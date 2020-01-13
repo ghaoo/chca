@@ -2,7 +2,6 @@ package template
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"html/template"
 	"io"
@@ -14,14 +13,6 @@ import (
 )
 
 var (
-	errUnavailable   = errors.New("template: unavailable action.")
-	errUnimplemented = errors.New("template: unimplemented action.")
-	errImport        = errors.New("template: unimplemented import.")
-	errMuseBeNamed   = errors.New("template: must be named before.")
-	errNeverShow     = errors.New("template: never show")
-)
-
-var (
 	// 占位用
 	placeholderFuncs = FuncMap{
 		"import": func(from, name string, data ...interface{}) (template.HTML, error) {
@@ -30,9 +21,7 @@ var (
 	}
 )
 
-/**
-模板风格
-*/
+// 模板风格
 type Kind uint8
 
 const (
@@ -58,17 +47,13 @@ type executor interface {
 	Tree() *parse.Tree
 }
 
-/**
-kindTree 对 parse.Tree 进行包装, 包含 Kind 信息.
-*/
+// kindTree 对 parse.Tree 进行包装, 包含 Kind 信息.
 type kindTree struct {
 	*parse.Tree
 	Kind
 }
 
-/**
-Copy 返回一份 kindTree 的拷贝.
-*/
+// Copy 返回一份 kindTree 的拷贝.
 func (t kindTree) Copy() kindTree {
 
 	var tree *parse.Tree
@@ -82,9 +67,7 @@ func (t kindTree) Copy() kindTree {
 	}
 }
 
-/**
-Dir 返回 ParseName 所属的目录.
-*/
+// Dir 返回 ParseName 所属的目录.
 func (t kindTree) Dir() string {
 	if t.Tree == nil {
 		return ""
@@ -92,17 +75,13 @@ func (t kindTree) Dir() string {
 	return path.Dir(t.Tree.ParseName)
 }
 
-/**
-IsValid 返回 t 是否有效.
-*/
+// IsValid 返回 t 是否有效.
 func (t kindTree) IsValid() bool {
 	return (t.Kind == TEXT || t.Kind == HTML) &&
 		t.Tree != nil && t.Tree.Name != "" && t.Tree.ParseName != ""
 }
 
-/**
-Name 返回 t.Tree.Name, 如果 t.Tree 为 nil, 返回 "".
-*/
+// Name 返回 t.Tree.Name, 如果 t.Tree 为 nil, 返回 "".
 func (t kindTree) Name() string {
 	if t.Tree == nil {
 		return ""

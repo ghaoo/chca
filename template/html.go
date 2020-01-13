@@ -10,9 +10,7 @@ type htmlTemp struct {
 	*template.Template
 }
 
-/**
-newHtml 新建基于 "html/template" 的共享模板.
-*/
+// newHtml 新建基于 "html/template" 的共享模板.
 func newHtml() executor {
 	return htmlTemp{
 		Template: template.New(shareName),
@@ -36,8 +34,7 @@ func (t htmlTemp) AddParseTree(tree *parse.Tree) (executor, error) {
 	}, nil
 }
 
-func (t htmlTemp) Execute(
-	p *Template, wr io.Writer, data interface{}) error {
+func (t htmlTemp) Execute(p *Template, wr io.Writer, data interface{}) error {
 	return t.Template.Execute(wr, data)
 }
 

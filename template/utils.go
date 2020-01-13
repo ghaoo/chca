@@ -11,16 +11,12 @@ import (
 
 type treeReceiver func(tree *parse.Tree, kind Kind) error
 
-/**
-共享模板的名字, 共享模板永远不被执行.
-用于优化 Clone(), 共享 common, FuncMap.
-*/
+// 共享模板的名字, 共享模板永远不被执行.
+// 用于优化 Clone(), 共享 common, FuncMap.
 const shareName = "57b11edbe4825b57ab27b7beab9848ed"
 
-/**
-从文件进行读取, 解析, 命名, hack
-filename 是经过 clear 后的绝对路径.
-*/
+// 从文件进行读取, 解析, 命名, hack
+// filename 是经过 clear 后的绝对路径.
 func parseFiles(t *Template, filename ...string) error {
 
 	var (
@@ -74,12 +70,10 @@ func parseFiles(t *Template, filename ...string) error {
 	return nil
 }
 
-/**
-parseText 需要知道第一个 tree 的 kind. 以便添加到 t.
-可能会载入新的文件, 产生模板名称对应的模板尚未载入.
-直到全部解析完才会完整载入.
-参数 ns 是给 tree 的 uri 命名.
-*/
+// parseText 需要知道第一个 tree 的 kind. 以便添加到 t.
+// 可能会载入新的文件, 产生模板名称对应的模板尚未载入.
+// 直到全部解析完才会完整载入.
+// 参数 ns 是给 tree 的 uri 命名.
 func parseText(t *Template, names map[string]bool,
 	kind Kind, ns, text string) error {
 

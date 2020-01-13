@@ -2,13 +2,17 @@ package chca
 
 import "time"
 
+// Article 定义了一篇文章所需要的要素
 type Article struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
+	// 文章的唯一标识
+	Id int `json:"id"`
+	// 文章标题
+	Title string `json:"title"`
+	// 文章简介
 	Description string `json:"description"`
 
-	Content  string   `json:"content"`
 	Summary  string   `json:"summary"`
+	Content  string   `json:"content"`
 	Tags     []string `json:"tags"`
 	Category []string `json:"cate"`
 
