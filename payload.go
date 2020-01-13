@@ -140,19 +140,20 @@ func loadContent(file string) (art *Article, err error) {
 		return nil, err
 	}
 
-	sumLines := Config().SummaryLine
+	if art.Summary == "" {
+		sumLines := conf.SummaryLine
 
-	summary, err := makeSummary(ctx.Content, sumLines)
+		art.Summary, err = makeSummary(ctx.Content, sumLines)
 
-	if err != nil {
-		return nil, err
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	art.Title = ctx.Title
 	art.Description = ctx.Description
 	art.Category = ctx.Categories
 	art.Tags = ctx.Tags
-	art.Summary = summary
 	art.Content = utils.MarkdownToHtml(ctx.Content)
 	art.CreatedAt = utils.Str2Unix("2006-01-02", ctx.Date)
 
@@ -166,7 +167,7 @@ func GetAllArt() []*Article {
 
 // 获取首页文章
 func GetHomeArt() []*Article {
-	num := Config().HomeArtNum
+	num := conf.HomeArtNum
 	if num == 0 || len(contents) <= num {
 		num = len(contents)
 	}
@@ -181,7 +182,7 @@ func GetHomeArt() []*Article {
 // 获取about内容
 func GetAbout() (art *Article, err error) {
 	art = &Article{}
-	about := path.Join(Config().Markdown, "/about.md")
+	about := path.Join(conf.Markdown, "/about.md")
 
 	if _, err := os.Stat(about); os.IsNotExist(err) {
 		return art, nil
@@ -202,7 +203,7 @@ func GetAbout() (art *Article, err error) {
 
 // 获取 markdown 文件夹下所有文件
 func Marklist() (mdlist []string) {
-	mddir := Config().Markdown
+	mddir := conf.Markdown
 
 	filepath.Walk(mddir, func(path string, f os.FileInfo, err error) error {
 
@@ -259,30 +260,6 @@ func makeSummary(content string, lines int) (string, error) {
 	}
 
 	return utils.MarkdownToHtml(dst), nil
-}
-
-// 根据内容获取摘要信息
-func summary(content string, n int) string {
-	strSlice := strings.SplitN(content, "\n", -1)
-
-	//var summary string
-	var sumSlice []string
-
-	for i, str := range strSlice {
-		if strings.Contains(strings.ToLower(str), "[toc]") {
-			continue
-		}
-
-		if i >= n {
-			break
-		}
-
-		sumSlice = append(sumSlice, str)
-	}
-
-	summary := strings.Join(sumSlice, "\n")
-
-	return summary
 }
 
 // 配置生产路径
@@ -347,7 +324,7 @@ func ReadMuCtx(path string) (ctx *mustring, err error) {
 	fi, _ := f.Stat()
 
 	if ctx.Title == "" {
-		ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), Config().Markdown+"/", "", 1)
+		ctx.Title = strings.Replace(strings.TrimRight(fi.Name(), ".md"), conf.Markdown+"/", "", 1)
 	}
 
 	if ctx.Date == "" {
@@ -412,34 +389,34 @@ func createConf() {
 
 func createDir() {
 
-	_, err := os.Stat(Config().Html)
+	_, err := os.Stat(conf.Html)
 	if os.IsNotExist(err) {
 
-		if err := os.MkdirAll(Config().Html, os.ModePerm); err != nil {
+		if err := os.MkdirAll(conf.Html, os.ModePerm); err != nil {
 			panic(err)
 		}
 	}
 
-	_, err = os.Stat(Config().Markdown)
+	_, err = os.Stat(conf.Markdown)
 	if os.IsNotExist(err) {
 
-		if err := os.MkdirAll(Config().Markdown, os.ModePerm); err != nil {
+		if err := os.MkdirAll(conf.Markdown, os.ModePerm); err != nil {
 			panic(err)
 		}
 	}
 
-	_, err = os.Stat(Config().Storage)
+	_, err = os.Stat(conf.Storage)
 	if os.IsNotExist(err) {
 
-		if err := os.MkdirAll(Config().Storage, os.ModePerm); err != nil {
+		if err := os.MkdirAll(conf.Storage, os.ModePerm); err != nil {
 			panic(err)
 		}
 	}
 
-	_, err = os.Stat(Config().Theme)
+	_, err = os.Stat(conf.Theme)
 	if os.IsNotExist(err) {
 
-		if err := os.MkdirAll(Config().Theme, os.ModePerm); err != nil {
+		if err := os.MkdirAll(conf.Theme, os.ModePerm); err != nil {
 			panic(err)
 		}
 	}

@@ -1,6 +1,8 @@
+{{ define "content" }}
+
 <div class="archive animated fadeInDown">
     <div class="list-with-title">
-        {{ range .tags }}
+        {{ range .cate }}
         <div class="listing-title">
             <a href="{{ .Url }}">
                 {{ .Name }}({{ .Count }})
@@ -10,3 +12,5 @@
         {{ end }}
     </div>
 </div>
+
+{{ end }}

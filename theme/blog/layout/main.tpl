@@ -30,11 +30,9 @@
     <div class="logo-title">
         <div class="title animated fadeInDown">
             <img src="{{ .avatar }}" style="width:127px;border-radius: 50%;">
-            <!--<h2 title="{{ .sitetitle }}">
-                <a href="http://blog.golune.com">{{ .sitetitle }}</a>
-            </h2>-->
+
             <hgroup>
-                <h1 class="header-author"><a href="http://chca.me">{{ .sitetitle }}</a></h1>
+                <h1 class="header-author"><a href="http://chca.me">{{ .title }}</a></h1>
             </hgroup>
 
             <div class="description animated fadeInDown">
@@ -65,7 +63,7 @@
     <div class="footer">
         <!--footer-->
 
-        <span>© Guhao's Blog 2015 - 2017. &nbsp;&nbsp;</span>
+        <span>© Guhao's Blog 2015 - 2020. &nbsp;&nbsp;</span>
         <span>Powered by <a href="https://github.com/ghaoo/chca">CHCA</a>. </span>
 
     </div>
@@ -96,7 +94,7 @@
     <div class="autopagerize_page_element">
         <div class="content">
 
-            {{import .tpl .}}
+            {{ template "content" . }}
 
             <div class="pagination">
                 <ul class="clearfix">

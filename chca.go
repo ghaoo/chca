@@ -15,6 +15,8 @@ var (
 	confile = "config.yml"
 )
 
+var conf = Config()
+
 func Initialize() {
 
 	createConf()
@@ -28,11 +30,11 @@ func ListenHttpServer(port int) {
 
 	p := strconv.Itoa(port)
 
-	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(Config().Html+"/assets/"))))
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir(conf.Html+"/assets/"))))
 
-	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(Config().Html))))
+	http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir(conf.Html))))
 
-	f := newFileHandler(Config().UploadTheme, Config().Markdown)
+	f := newFileHandler(conf.UploadTheme, conf.Markdown)
 	f.Http()
 
 	log.Debugf("内置web服务器开启成功，监听端口 :%d...", port)

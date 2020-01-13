@@ -1,4 +1,4 @@
-
+{{ define "content" }}
 
 <div class="archive animated fadeInDown">
     <div class="list-with-title">
@@ -21,3 +21,5 @@
             {{ end }}</ul>
     </div>
 </div>
+
+{{ end }}
